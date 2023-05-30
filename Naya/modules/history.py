@@ -8,6 +8,7 @@ from Naya import (
     app,
     eor,
 )
+from config import GBAN_LOG_GROUP_ID
 from Naya.core.decorators.errors import capture_err
 from Naya.utils.tools import *
 
@@ -42,7 +43,8 @@ async def _(client, message):
         if not stalk:
             NotFound = await app.send_message(message.chat.id, "`Bot sedang eror ! Tunggu beberapa saat lagi.`")
         elif stalk:
-            await client.copy(GBAN_LOG_GROUP_ID, f"{stalk.text}")
-            await message.reply(stalk.text)
+            biji = await client.send_message(GBAN_LOG_GROUP_ID, f"{stalk.text}")
+            sg = await app.get_messages(GBAN_LOG_GROUP_ID, biji.id + 1)
+            await message.reply(sg.text)
     user_info = await client.resolve_peer(bot)
     return await client.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
