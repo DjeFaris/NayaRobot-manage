@@ -9,7 +9,7 @@ from os import system as execute
 from pyrogram import enums, filters
 from pyrogram.types import Message
 
-from wbb import MONGO_URL, SUDOERS, app
+from Naya import MONGO_URL, SUDOERS, app
 
 
 @app.on_message(filters.command("backup") & SUDOERS)
