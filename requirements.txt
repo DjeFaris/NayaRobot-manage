@@ -30,3 +30,4 @@ python-dotenv
 openai
 psutil
 httpx[http2]
+cachetools
