@@ -74,7 +74,7 @@ async def img(_, message):
     try:
         response = OpenAi.photo(message.text.split(None, 1)[1])
         msg = message.reply_to_message or message
-        await message.reply_photo(message.chat.id, response, reply_to_message_id=msg.id)
+        await message.reply_photo(response, reply_to_message_id=msg.id)
         return await tt.delete()
     except Exception as error:
         await message.reply_text(error)
