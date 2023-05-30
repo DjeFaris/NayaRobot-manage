@@ -20,7 +20,7 @@ youtube_dl
 bs4
 python-dotenv
 feedparser
-pyromod
+pyromod==1.1.0
 fuzzysearch
 img2pdf
 telegraph
