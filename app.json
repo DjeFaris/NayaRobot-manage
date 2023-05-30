@@ -33,6 +33,11 @@
          "required": true,
          "value": "-1001812143750"
       },
+      "MESSAGE_DUMP_CHAT": {
+         "description": "Event logs channel to note down important bot level events, recommend to make this public. ex: '-123456'",
+         "required": true,
+         "value": "-1001812143750"
+      },
       "GBAN_LOG_GROUP_ID": {
          "description": "Log gban ex: '-123456'",
          "required": true,
