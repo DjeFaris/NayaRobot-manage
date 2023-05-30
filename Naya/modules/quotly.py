@@ -8,7 +8,7 @@ from traceback import format_exc
 
 from pyrogram import filters
 from pyrogram.types import Message
-from Naya.utils.http import *
+from Naya.utils.http import http
 from Naya import SUDOERS, USERBOT_PREFIX, app, app2, eor
 from Naya.core.decorators.errors import capture_err
 
