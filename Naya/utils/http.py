@@ -4,8 +4,14 @@ Copyright (c) 2023 Kynan | TheHamkerCat
 
 """
 from asyncio import gather
-
+import httpx
 from Naya import aiohttpsession as session
+
+http = httpx.AsyncClient(
+    http2=True,
+    verify=False,
+    timeout=httpx.Timeout(40),
+)
 
 
 async def get(url: str, *args, **kwargs):
