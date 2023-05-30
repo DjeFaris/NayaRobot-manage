@@ -5,7 +5,7 @@ from pyrogram.errors import YouBlockedUser
 from pyrogram.raw.functions.messages import DeleteHistory
 from pyrogram import Client, filters
 from pyrogram.types import Message
-
+from Naya.core.decorators.ratelimiter import ratelimiter
 from Naya.utils.dbfunctions import *
 from Naya.core.decorators.permissions import adminsOnly
 from Naya import (
@@ -55,6 +55,7 @@ async def cek_mataa(self: Client, ctx: Message):
 
 @app.on_message(filters.group & filters.command("sangmata") & ~filters.bot & ~filters.via_bot)
 @adminsOnly("can_change_info")
+@ratelimiter
 async def set_mataa(self: Client, ctx: Message):
     if len(ctx.command) == 1:
         return await ctx.reply_text("Gunakan <code>/on</code>, untuk mengaktifkan sangmata. Jika Anda ingin menonaktifkan, Anda dapat menggunakan parameter off.")
