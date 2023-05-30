@@ -263,7 +263,7 @@ async def msg_quotly_cmd(client, message):
         if check_arg[0]:
             if check_arg[1] < 2 or check_arg[1] > 10:
                 return await eor(
-                    message, "<code>Argumen yang anda berikan salah...</code>", del_in=6
+                    message, text="<code>Argumen yang anda berikan salah...</code>", del_in=6
                 )
             else:
                 mk = await message.reply_text("`Processing...`")
@@ -281,26 +281,26 @@ async def msg_quotly_cmd(client, message):
                     if not i.empty and not i.media
                 ]
             except Exception as e:
-                return await eor(message, f"<code>Error : {e}</code>")
+                return await eor(message, text=f"<code>Error : {e}</code>")
             try:
                 make_quotly = await pyrogram_to_quotly(messages)
                 bio_sticker = BytesIO(make_quotly)
                 bio_sticker.name = "biosticker.webp"
                 return await message.reply_sticker(bio_sticker)
             except Exception as e:
-                return await eor(message, f"<code>Error : {e}</code>")
+                return await eor(message, text=f"<code>Error : {e}</code>")
     try:
         messages_one = await client.get_messages(
             chat_id=message.chat.id, message_ids=message.reply_to_message.id, replies=-1
         )
         messages = [messages_one]
     except Exception as e:
-        return await eor(message, f"<code>Error : {e}</code>")
+        return await eor(message, text=f"<code>Error : {e}</code>")
     try:
         make_quotly = await pyrogram_to_quotly(messages)
         bio_sticker = BytesIO(make_quotly)
         bio_sticker.name = "biosticker.webp"
         return await message.reply_sticker(bio_sticker)
     except Exception as e:
-        return await eor(message, f"<code>Error : {e}</code>")
+        return await eor(message, text=f"<code>Error : {e}</code>")
     await mk.delete()
