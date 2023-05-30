@@ -50,30 +50,30 @@ async def cek_mataa(self: Client, ctx: Message):
         msg += f"`Mengubah nama belakang dari {lastname_before} ke {lastname_after}.`\n"
         await add_userdata(ctx.from_user.id, ctx.from_user.username, ctx.from_user.first_name, ctx.from_user.last_name)
     if msg != "":
-        await ctx.reply_msg(msg, quote=True)
+        await ctx.reply_text(msg, quote=True)
 
 
 @app.on_message(filters.group & filters.command("sangmata") & ~filters.bot & ~filters.via_bot)
 @adminsOnly("can_change_info")
 async def set_mataa(self: Client, ctx: Message):
     if len(ctx.command) == 1:
-        return await ctx.reply_msg("Gunakan <code>/on</code>, untuk mengaktifkan sangmata. Jika Anda ingin menonaktifkan, Anda dapat menggunakan parameter off.")
+        return await ctx.reply_text("Gunakan <code>/on</code>, untuk mengaktifkan sangmata. Jika Anda ingin menonaktifkan, Anda dapat menggunakan parameter off.")
     if ctx.command[1] == "on":
         cekset = await is_sangmata_on(ctx.chat.id)
         if cekset:
-            await ctx.reply_msg("SangMata telah diaktifkan di grup Anda.")
+            await ctx.reply_text("SangMata telah diaktifkan di grup Anda.")
         else:
             await sangmata_on(ctx.chat.id)
-            await ctx.reply_msg("Sangmata diaktifkan di grup Anda.")
+            await ctx.reply_text("Sangmata diaktifkan di grup Anda.")
     elif ctx.command[1] == "off":
         cekset = await is_sangmata_on(ctx.chat.id)
         if not cekset:
-            await ctx.reply_msg("SangMata telah dinonaktifkan di grup Anda.")
+            await ctx.reply_text("SangMata telah dinonaktifkan di grup Anda.")
         else:
             await sangmata_off(ctx.chat.id)
-            await ctx.reply_msg("Sangmata dinonaktifkan di grup Anda.")
+            await ctx.reply_text("Sangmata dinonaktifkan di grup Anda.")
     else:
-        await ctx.reply_msg("Parameter tidak diketahui, gunakan hanya parameter on/off.", del_in=6)
+        await ctx.reply_text("Parameter tidak diketahui, gunakan hanya parameter on/off.", del_in=6)
 
 @app.on_message(filters.command(["sg"]))
 @capture_err
