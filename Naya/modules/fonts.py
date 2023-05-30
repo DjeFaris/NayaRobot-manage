@@ -129,9 +129,9 @@ async def font_ubot(_, message):
             nan = gen_font(text, _font14)
         elif font == "15":
             nan = gen_font(text, _font15)
-        await eor(message, nan)
+        await eor(message, text=nan)
     else:
-        return await eor(message, "Balas Teks Dan Isi Nama Font!!!")
+        return await eor(message, text="Balas Teks Dan Isi Nama Font!!!")
 
 
 @app.on_message(filters.command(["listfont", "lf"]))
