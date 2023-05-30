@@ -270,14 +270,17 @@ def extract_text_and_keyb(ikb, text: str, row_width: int = 2):
     keyboard = {}
     try:
         text = text.strip()
-        text = text.removeprefix("`")
-        text = text.removesuffix("`")
-        text, keyb = text.split(" ")
+        if text.startswith("`"):
+            text = text[1:]
+        if text.endswith("`"):
+            text = text[:-1]
 
-        keyb = findall(r"\[.+\|.+\]", keyb)
+        text, keyb = text.split("~")
+
+        keyb = findall(r"\[.+\,.+\]", keyb)
         for btn_str in keyb:
             btn_str = re_sub(r"[\[\]]", "", btn_str)
-            btn_str = btn_str.split("|")
+            btn_str = btn_str.split(",")
             btn_txt, btn_url = btn_str[0], btn_str[1].strip()
 
             if not get_urls_from_text(btn_url):
