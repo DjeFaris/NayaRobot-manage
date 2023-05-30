@@ -29,5 +29,4 @@ pytz
 python-dotenv
 openai
 psutil
-http
 httpx[http2]
