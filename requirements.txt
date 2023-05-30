@@ -27,3 +27,5 @@ telegraph
 pytube
 pytz
 python-dotenv
+openai
+psutil
