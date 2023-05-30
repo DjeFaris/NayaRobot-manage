@@ -220,7 +220,7 @@ async def help_parser(name, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     return (
-        """Hello {first_name}, Saya adalah {BOT_NAME}.
+        """Hello {first_name}, Saya adalah {bot_name}.
 Saya adalah Bot Musik Dan Juga Dapat Membantu Kamu Untuk Mengelola Grup . Jika ada pertanyaan silakan kamu datang ke @KynanSupport.
 """.format(
             first_name=name,
@@ -257,7 +257,7 @@ async def help_button(client, query):
     back_match = re.match(r"help_back", query.data)
     create_match = re.match(r"help_create", query.data)
     top_text = f"""
-Hello {first_name}, Saya adalah {BOT_NAME}.
+Hello {query.from_user.first_name}, Saya adalah {BOT_NAME}.
 Saya adalah Bot Musik Dan Juga Dapat Membantu Kamu Untuk Mengelola Grup . Jika ada pertanyaan silakan kamu datang ke @KynanSupport.
  """
     if mod_match:
