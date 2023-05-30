@@ -47,7 +47,7 @@ def tomorrow():
     return str(dt_tom())
 
 
-@app.on_message(filters.command(["cp", "couple"))
+@app.on_message(filters.command(["cp", "couple"]))
 @capture_err
 async def couple(_, message):
     if message.chat.type == enums.ChatType.PRIVATE:
