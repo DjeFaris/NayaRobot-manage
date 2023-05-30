@@ -12,7 +12,7 @@ Copyright (c) 2023 Kynan | TheHamkerCat
 
 from pyrogram import *
 from pyrogram.types import *
-
+from Naya.utils.tools import *
 from Naya import (
     app,
     eor,
