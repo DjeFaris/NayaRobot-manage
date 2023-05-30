@@ -42,10 +42,11 @@ async def _(_, message):
     
     async for stalk in app2.search_messages(getbot, query="History", limit=1):
         if not stalk:
-            NotFound = await app.send_message(message.chat.id, "`Bot sedang eror ! Tunggu beberapa saat lagi.`")
+            NotFound = await app.send_message("`Bot sedang eror ! Tunggu beberapa saat lagi.`")
         elif stalk:
             biji = await app2.send_message(GBAN_LOG_GROUP_ID, f"{stalk.text}")
-            sg = await app.get_messages(GBAN_LOG_GROUP_ID, biji.id + 1)
+    async for cok in app.search_messages(GBAN_LOG_GROUP_ID, query="History", limit=1):
+            sg = await app.get_messages(GBAN_LOG_GROUP_ID, f"{cok.text}")
             await message.reply(sg.text)
     user_info = await app2.resolve_peer(bot)
     return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
