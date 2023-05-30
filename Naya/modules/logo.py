@@ -10,7 +10,7 @@ import random
 
 from PIL import Image, ImageDraw, ImageFont
 from pyrogram import enums, filters
-
+from Naya import app2 as client
 from Naya import (
     app,
     eor,
