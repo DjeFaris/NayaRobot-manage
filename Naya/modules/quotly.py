@@ -266,7 +266,7 @@ async def msg_quotly_cmd(client, message):
                     message, "<code>Argumen yang anda berikan salah...</code>", del_in=6
                 )
             else:
-                mk = await message.edit("`Processing...`")
+                mk = await message.reply_text("`Processing...`")
             try:
                 messages = [
                     i
