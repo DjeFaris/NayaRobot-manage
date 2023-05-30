@@ -261,8 +261,6 @@ async def resize_media(media, video, fast_forward):
     os.remove(media)
     return resized_photo
 
-flood = {}
-
 
 async def extract_userid(message, text):
     def is_int(text):
