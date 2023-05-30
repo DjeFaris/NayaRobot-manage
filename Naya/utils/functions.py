@@ -274,7 +274,7 @@ def extract_text_and_keyb(ikb, text: str, row_width: int = 2):
         text = text.removesuffix("`")
         text, keyb = text.split(" ")
 
-        keyb = findall(r"\[.+\,.+\]", keyb)
+        keyb = findall(r"\[.+\|.+\]", keyb)
         for btn_str in keyb:
             btn_str = re_sub(r"[\[\]]", "", btn_str)
             btn_str = btn_str.split("|")
