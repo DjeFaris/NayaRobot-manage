@@ -79,6 +79,7 @@ async def get_notes(_, message):
 
 
 @app2.on_message(filters.command("get", prefixes=USERBOT_PREFIX) & SUDOERS)
+@app.on_message(filters.command("get") & ~filters.private)
 async def get_one_note_userbot(_, message):
     if len(message.text.split()) < 2:
         return await eor(message, text="Invalid arguments")
