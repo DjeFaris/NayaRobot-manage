@@ -19,27 +19,30 @@ __HELP__ = f"""
 
 @app.on_message(filters.command(["sg"]))
 @capture_err
-async def sg_cmd(client, message):
-    user_id = await extract_user(message)
-    lol = await message.reply("</code>Processing. . .</code>")
-    if not user_id:
-        return await lol.edit("<code>Balas ke pengguna</code>")
-    try:
-        user = await client.get_users(user_id)
-    except Exception as error:
-        return await lol.edit(error)
+async def _(client, message):
+    args = await extract_user(message)
+    lol = await eor(message, text="`Processing...`")
+    if args:
+        try:
+            user = await client.get_users(args)
+        except Exception as error:
+            return await lol.edit(error)
     bot = ["@Sangmata_bot", "@SangMata_beta_bot"]
-    try:
-        await client.join_chat("https://t.me/+WfSafBhGCLdkZGQ1")
-    except:
-        pass
     getbot = random.choice(bot)
-    txt = await client.send_message(-1001941800502, f"{getbot} allhistory {user.id}")
-    await asyncio.sleep(4)
-    await lol.delete()
     try:
-        sg = await client.get_messages(-1001941800502, txt.id + 1)
-        await message.reply(sg.text)
-    except:
-        await message.reply("`❌ Bot sedang eror ! Tunggu beberapa saat lagi.`")
-    await client.leave_chat(-1001941800502)
+        txt = await client.send_message(getbot, f"{user.id}")
+    except YouBlockedUser:
+        await client.unblock_user(getbot)
+        txt = await client.send_message(getbot, f"{user.id}")
+    await txt.delete()
+    await asyncio.sleep(5)
+    await lol.delete()
+    
+    async for stalk in client.search_messages(getbot, query="History", limit=1):
+        if not stalk:
+            NotFound = await app.send_message(message.chat.id, "`Bot sedang eror ! Tunggu beberapa saat lagi.`")
+        elif stalk:
+            await client.copy(GBAN_LOG_GROUP_ID, f"{stalk.text}")
+            await message.reply(stalk.text)
+    user_info = await client.resolve_peer(bot)
+    return await client.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
