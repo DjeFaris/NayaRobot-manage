@@ -112,7 +112,7 @@ async def get_one_note(_, message):
     if _note["type"] == "text":
         data = _note["data"]
         keyb = None
-        if findall(r"\[.+\,.+\]", data):
+        if findall(r"\[.+\|.+\]", data):
             if keyboard := extract_text_and_keyb(ikb, data):
                 data, keyb = keyboard
         await message.reply_text(
