@@ -45,8 +45,8 @@ async def cek_mataa(self: Client, ctx: Message, strings):
         msg += f"`Mengubah nama depan dari {first_name} ke {from_user.first_name}.`\n"
         await add_userdata(ctx.from_user.id, ctx.from_user.username, ctx.from_user.first_name, ctx.from_user.last_name)
     if lastname_before != ctx.from_user.last_name:
-        lastname_before = lastname_before or text="`Tanpa Nama Belakang`"
-        lastname_after = ctx.from_user.last_name or text="`Tanpa Nama Belakang`"
+        lastname_before = lastname_before or "`Tanpa Nama Belakang`"
+        lastname_after = ctx.from_user.last_name or "`Tanpa Nama Belakang`"
         msg += f"`Mengubah nama belakang dari {lastname_before} ke {lastname_after}.`\n"
         await add_userdata(ctx.from_user.id, ctx.from_user.username, ctx.from_user.first_name, ctx.from_user.last_name)
     if msg != "":
