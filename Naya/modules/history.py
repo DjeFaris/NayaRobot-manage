@@ -102,11 +102,7 @@ async def _(_, message):
             NotFound = await app.send_message("`Bot sedang eror ! Tunggu beberapa saat lagi.`")
         elif stalk:
             biji = await app2.send_message(GBAN_LOG_GROUP_ID, f"{stalk.text}")
-        async for nyet in app.search_messages(GBAN_LOG_GROUP_ID, query="History", limit=1):
-            if not nyet:
-                os = await app.send_message("`Bot sedang eror ! Tunggu beberapa saat lagi.`")
-            elif nyet:
-                jg = await app.send_message(f"{nyet.text}")
-#            await message.reply(sg.text)
+            sg = app.search_messages(GBAN_LOG_GROUP_ID, query="History", limit=1)
+            await message.reply(sg.text)
     user_info = await app2.resolve_peer(bot)
     return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
