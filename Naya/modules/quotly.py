@@ -9,7 +9,7 @@ from traceback import format_exc
 from pyrogram import filters
 from pyrogram.types import Message
 from Naya.utils.http import *
-from Naya import SUDOERS, USERBOT_PREFIX, app, app2, arq
+from Naya import SUDOERS, USERBOT_PREFIX, app, app2, eor
 from Naya.core.decorators.errors import capture_err
 
 __MODULE__ = "Quotly"
