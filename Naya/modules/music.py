@@ -9,13 +9,21 @@ import os
 from asyncio import get_running_loop
 from functools import partial
 from io import BytesIO
+import os
+from asyncio import get_event_loop
+from functools import partial
 
+import wget
+from pyrogram import *
+from pyrogram.types import *
+from youtubesearchpython import SearchVideos
+from yt_dlp import YoutubeDL
 from pyrogram import filters
 from pytube import YouTube
 from requests import get
-
+from Naya import app2 as client
 from Naya import aiohttpsession as session
-from Naya import app, arq
+from Naya import app, arq, eor
 from Naya.core.decorators.errors import capture_err
 from Naya.utils.pastebin import paste
 
@@ -24,7 +32,14 @@ __HELP__ = """
 /ytmusic [link] To Download Music From Various Websites Including Youtube. [SUDOERS]
 /saavn [query] To Download Music From Saavn.
 /lyrics [query] To Get Lyrics Of A Song.
+/song [query] To Download Music From Various Websites Including Youtube. [SUDOERS]
+/video [query] To Download Music From Saavn.
 """
+
+
+def run_sync(func, *args, **kwargs):
+    return get_event_loop().run_in_executor(None, partial(func, *args, **kwargs))
+
 
 is_downloading = False
 
@@ -181,3 +196,124 @@ async def lyrics_func(_, message):
         msg = await paste(msg)
         msg = f"**LYRICS_TOO_LONG:** [URL]({msg})"
     return await m.edit(msg)
+
+
+@app.on_message(filters.command("video"))
+async def yt_video(client, message):
+    if len(message.command) < 2:
+        return await eor(
+            message,
+            text="❌ <b>Video tidak ditemukan,</b>\nMohon masukan judul video dengan benar.",
+        )
+    infomsg = await eor(message, text="`Processing...`")
+    try:
+        search = (
+            SearchVideos(
+                str(message.text.split(None, 1)[1]),
+                offset=1,
+                mode="dict",
+                max_results=1,
+            )
+            .result()
+            .get("search_result")
+        )
+        link = f"https://youtu.be/{search[0]['id']}"
+    except Exception as error:
+        return await infomsg.edit(f"🔍 Pencarian...\n\n❌ Error: {error}")
+    ydl = YoutubeDL(
+        {
+            "quiet": True,
+            "no_warnings": True,
+            "format": "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio[ext=m4a])",
+            "outtmpl": "downloads/%(id)s.%(ext)s",
+            "nocheckcertificate": True,
+            "geo_bypass": True,
+        }
+    )
+    await eor(message, text="`Processing...`")
+    try:
+        ytdl_data = await run_sync(ydl.extract_info, link, download=True)
+        file_path = ydl.prepare_filename(ytdl_data)
+        videoid = ytdl_data["id"]
+        title = ytdl_data["title"]
+        url = f"https://youtu.be/{videoid}"
+        duration = ytdl_data["duration"]
+        channel = ytdl_data["uploader"]
+        views = f"{ytdl_data['view_count']:,}".replace(",", ".")
+        thumbs = f"https://img.youtube.com/vi/{videoid}/hqdefault.jpg"
+    except Exception as error:
+        return await infomsg.edit(f"`Error: {error}`")
+    thumbnail = wget.download(thumbs)
+    await client.send_video(
+        message.chat.id,
+        video=file_path,
+        thumb=thumbnail,
+        file_name=title,
+        duration=duration,
+        supports_streaming=True,
+        caption=f"**Upload by {app.me.mention}**",
+    )
+    await infomsg.delete()
+    for files in (thumbnail, file_path):
+        if files and os.path.exists(files):
+            os.remove(files)
+
+
+@app.on_message(filters.command("song"))
+async def yt_audio(client, message):
+    if len(message.command) < 2:
+        return await eor(
+            message,
+            text="❌ <b>Audio tidak ditemukan,</b>\nmohon masukan judul video dengan benar.",
+        )
+    infomsg = await eor(message, text="`Processing...`")
+    try:
+        search = (
+            SearchVideos(
+                str(message.text.split(None, 1)[1]),
+                offset=1,
+                mode="dict",
+                max_results=1,
+            )
+            .result()
+            .get("search_result")
+        )
+        link = f"https://youtu.be/{search[0]['id']}"
+    except Exception as error:
+        return await infomsg.edit(f"🔍 Pencarian...\n\n❌ Error: {error}")
+    ydl = YoutubeDL(
+        {
+            "quiet": True,
+            "no_warnings": True,
+            "format": "bestaudio[ext=m4a]",
+            "outtmpl": "downloads/%(id)s.%(ext)s",
+            "nocheckcertificate": True,
+            "geo_bypass": True,
+        }
+    )
+    await eor(message, text="`Processing...`")
+    try:
+        ytdl_data = await run_sync(ydl.extract_info, link, download=True)
+        file_path = ydl.prepare_filename(ytdl_data)
+        videoid = ytdl_data["id"]
+        title = ytdl_data["title"]
+        url = f"https://youtu.be/{videoid}"
+        duration = ytdl_data["duration"]
+        channel = ytdl_data["uploader"]
+        views = f"{ytdl_data['view_count']:,}".replace(",", ".")
+        thumbs = f"https://img.youtube.com/vi/{videoid}/hqdefault.jpg"
+    except Exception as error:
+        return await infomsg.edit(f"`Error: {error}`")
+    thumbnail = wget.download(thumbs)
+    await client.send_audio(
+        message.chat.id,
+        audio=file_path,
+        thumb=thumbnail,
+        file_name=title,
+        duration=duration,
+        caption=f"<b>Upload By:</b> {app.me.mention}",
+    )
+    await infomsg.delete()
+    for files in (thumbnail, file_path):
+        if files and os.path.exists(files):
+            os.remove(files)
