@@ -27,7 +27,7 @@ __HELP__ = f"""
     filters.group & ~filters.bot & ~filters.via_bot,
     group=3,
 )
-async def cek_mataa(self: Client, ctx: Message, strings):
+async def cek_mataa(self: Client, ctx: Message):
     if ctx.sender_chat or not await is_sangmata_on(ctx.chat.id):
         return
     if not await cek_userdata(ctx.from_user.id):
@@ -55,7 +55,7 @@ async def cek_mataa(self: Client, ctx: Message, strings):
 
 @app.on_message(filters.group & filters.command("sangmata") & ~filters.bot & ~filters.via_bot)
 @adminsOnly("can_change_info")
-async def set_mataa(self: Client, ctx: Message, strings):
+async def set_mataa(self: Client, ctx: Message):
     if len(ctx.command) == 1:
         return await ctx.reply_msg("Gunakan <code>/on</code>, untuk mengaktifkan sangmata. Jika Anda ingin menonaktifkan, Anda dapat menggunakan parameter off.")
     if ctx.command[1] == "on":
