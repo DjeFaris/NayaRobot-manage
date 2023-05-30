@@ -7,7 +7,6 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from Naya.utils.dbfunctions import *
-from Naya import app
 from Naya.core.decorator.permissions import adminsOnly
 from Naya import (
     app,
