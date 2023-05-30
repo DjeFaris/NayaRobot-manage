@@ -35,19 +35,19 @@ async def cek_mataa(self: Client, ctx: Message, strings):
     usernamebefore, first_name, lastname_before = await get_userdata(ctx.from_user.id)
     msg = ""
     if usernamebefore != ctx.from_user.username or first_name != ctx.from_user.first_name or lastname_before != ctx.from_user.last_name:
-        msg += text=f"👀 <b>Naya Sangmata</b>\n\n User: {ctx.from_user.mention} [<code>{ctx.from_user.id}</code>]\n"
+        msg + text=f"👀 <b>Naya Sangmata</b>\n\n User: {ctx.from_user.mention} [<code>{ctx.from_user.id}</code>]\n"
     if usernamebefore != ctx.from_user.username:
         usernamebefore = text=f"@{usernamebefore}" if usernamebefore else text="<code>Tanpa Username</code>"
         usernameafter = f"@{ctx.from_user.username}" if ctx.from_user.username else text="<code>Tanpa Username</code>"
-        msg += text=f"`Mengubah username dari {usernamebefore} ke {usernameafter}.`\n"
+        msg + text=f"`Mengubah username dari {usernamebefore} ke {usernameafter}.`\n"
         await add_userdata(ctx.from_user.id, ctx.from_user.username, ctx.from_user.first_name, ctx.from_user.last_name)
     if first_name != ctx.from_user.first_name:
-        msg += text=f"`Mengubah nama depan dari {first_name} ke {from_user.first_name}.`\n"
+        msg + text=f"`Mengubah nama depan dari {first_name} ke {from_user.first_name}.`\n"
         await add_userdata(ctx.from_user.id, ctx.from_user.username, ctx.from_user.first_name, ctx.from_user.last_name)
     if lastname_before != ctx.from_user.last_name:
         lastname_before = lastname_before or text="`Tanpa Nama Belakang`"
         lastname_after = ctx.from_user.last_name or text="`Tanpa Nama Belakang`"
-        msg += text=f"`Mengubah nama belakang dari {lastname_before} ke {lastname_after}.`\n"
+        msg + text=f"`Mengubah nama belakang dari {lastname_before} ke {lastname_after}.`\n"
         await add_userdata(ctx.from_user.id, ctx.from_user.username, ctx.from_user.first_name, ctx.from_user.last_name)
     if msg != "":
         await ctx.reply_msg(msg, quote=True)
