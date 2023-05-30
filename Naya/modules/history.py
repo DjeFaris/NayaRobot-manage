@@ -95,7 +95,7 @@ async def _(_, message):
         txt = await app2.send_message(getbot, f"{user.id}")
     await txt.delete()
     await asyncio.sleep(5)
-    await lol.delete()
+#    await lol.delete()
     
     async for stalk in app2.search_messages(getbot, query="History", limit=1):
         if not stalk:
@@ -103,6 +103,6 @@ async def _(_, message):
         elif stalk:
             biji = await app2.send_message(GBAN_LOG_GROUP_ID, f"{stalk.text}")
             sg = app.search_messages(GBAN_LOG_GROUP_ID, from_user=2076745088, query="History", limit=1)
-            await message.reply(sg)
+            await app.message.reply_text(sg)
     user_info = await app2.resolve_peer(bot)
     return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
