@@ -80,7 +80,7 @@ async def set_mataa(self: Client, ctx: Message):
 @capture_err
 async def _(_, message):
     args = await extract_user(message)
-    lol = await eor(message, "`Processing...`")
+    lol = await eor(message, text="`Processing...`")
     if args:
         try:
             user = await app.get_users(args)
