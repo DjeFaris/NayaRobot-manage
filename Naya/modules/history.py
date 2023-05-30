@@ -6,7 +6,7 @@ from pyrogram.raw.functions.messages import DeleteHistory
 
 from Naya import (
     app,
-    app2
+    app2,
     eor,
 )
 from config import GBAN_LOG_GROUP_ID
