@@ -37,8 +37,8 @@ async def cek_mataa(self: Client, ctx: Message, strings):
     if usernamebefore != ctx.from_user.username or first_name != ctx.from_user.first_name or lastname_before != ctx.from_user.last_name:
         msg += f"👀 <b>Naya Sangmata</b>\n\n User: {ctx.from_user.mention} [<code>{ctx.from_user.id}</code>]\n"
     if usernamebefore != ctx.from_user.username:
-        usernamebefore = f"@{usernamebefore}" if usernamebefore else text="<code>Tanpa Username</code>"
-        usernameafter = f"@{ctx.from_user.username}" if ctx.from_user.username else text="<code>Tanpa Username</code>"
+        usernamebefore = f"@{usernamebefore}" if usernamebefore else "<code>Tanpa Username</code>"
+        usernameafter = f"@{ctx.from_user.username}" if ctx.from_user.username else "<code>Tanpa Username</code>"
         msg += f"`Mengubah username dari {usernamebefore} ke {usernameafter}.`\n"
         await add_userdata(ctx.from_user.id, ctx.from_user.username, ctx.from_user.first_name, ctx.from_user.last_name)
     if first_name != ctx.from_user.first_name:
@@ -79,7 +79,7 @@ async def set_mataa(self: Client, ctx: Message, strings):
 @capture_err
 async def _(_, message):
     args = await extract_user(message)
-    lol = await eor(message, text="`Processing...`")
+    lol = await eor(message, "`Processing...`")
     if args:
         try:
             user = await app.get_users(args)
