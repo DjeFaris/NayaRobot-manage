@@ -124,8 +124,8 @@ async def get_one_note(_, message):
         await message.reply_sticker(_note["data"])
 
 
-@app2.on_message(filters.command("delete", prefixes=USERBOT_PREFIX) & SUDOERS)
-@app.on_message(filters.command("delete") & ~filters.private)
+@app2.on_message(filters.command("rm", prefixes=USERBOT_PREFIX) & SUDOERS)
+@app.on_message(filters.command("rm") & ~filters.private)
 @adminsOnly("can_change_info")
 async def del_note(_, message):
     if len(message.command) < 2:
