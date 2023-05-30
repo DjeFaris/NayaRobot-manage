@@ -26,7 +26,10 @@ __HELP__ = f"""
 @app.on_message(filters.command(["logo"]))
 @capture_err
 async def logo_gen(_, message):
-    name = message.text.split(" ", 1)[1]
+    if message.reply_to_message:
+        name = message.reply_to_message.text
+    else:
+        name = message.text.split(" ", 1)[1]
     xx = await eor(
                 message, text="<code>Processing...</code>")
     if not name:
@@ -99,7 +102,6 @@ async def logo_gen(_, message):
     await xx.edit("<code>Uploading</code>")
     if os.path.exists(flnme):
         await message.reply_photo(
-            chat_id=message.chat.id,
             photo=flnme,
             caption=f"<b>Logo by :{app.me.mention}</b>",
         )
