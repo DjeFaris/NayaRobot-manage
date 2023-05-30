@@ -31,12 +31,12 @@ NOTE: Fillings only works in greetings module.
 
 <u>Button formatting:</u>
 
--> text ~ [button text, button link]
+-> text [button text|button link]
 
 
 <u>Example:</u>
 
-<b>example</b> <i>button with markdown</i> <code>formatting</code> ~ [button text, https://google.com]
+<b>example</b> <i>button with markdown</i> <code>formatting</code> [button text|https://google.com]
 """
 
 
