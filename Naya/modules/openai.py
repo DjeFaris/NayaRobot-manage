@@ -52,7 +52,7 @@ class OpenAi:
 @app.on_message(filters.command(["ai", "ask"]))
 @capture_err
 async def ask(_, message):
-    tt = await message.reply_text("<code>Memproses...</code>")
+    tt = await message.reply_text("<code>Processing...</code>")
     if len(message.command) < 2:
         return await eor(message, text=f"<b>Gunakan format :<code>ai</code> [pertanyaan]</b>")
     try:
@@ -68,7 +68,7 @@ async def ask(_, message):
 @app.on_message(filters.command(["img"]))
 @capture_err
 async def img(_, message):
-    tt = await message.reply_text("<code>Memproses...</code>")
+    tt = await message.reply_text("<code>Processing...</code>")
     if len(message.command) < 2:
         return await eor(message, text=f"<b>Gunakan format :<code>ai</code> [pertanyaan]</b>")
     try:
