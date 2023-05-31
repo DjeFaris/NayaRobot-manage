@@ -13,7 +13,7 @@ async def _(_, message):
     try:
         asupannya = []
         async for asupan in app2.search_messages(
-            "@AsupanNyaSaiki", filter=MessagesFilter.VIDEO
+            "AsupanNyaSaiki", filter=MessagesFilter.VIDEO
         ):
             asupannya.append(asupan)
         video = random.choice(asupannya)
@@ -33,7 +33,7 @@ async def _(_, message):
     try:
         ayangnya = []
         async for ayang in app2.search_messages(
-            "@AyangSaiki", filter=MessagesFilter.PHOTO
+            "AyangSaiki", filter=MessagesFilter.PHOTO
         ):
             ayangnya.append(ayang)
         photo = random.choice(ayangnya)
@@ -53,7 +53,7 @@ async def _(_, message):
     try:
         ayang2nya = []
         async for ayang2 in app2.search_messages(
-            "@Ayang2Saiki", filter=MessagesFilter.PHOTO
+            "Ayang2Saiki", filter=MessagesFilter.PHOTO
         ):
             ayang2nya.append(ayang2)
         photo = random.choice(ayang2nya)
@@ -75,7 +75,7 @@ async def anim(_, message):
             [
                 jir.photo.file_id
                 async for jir in app2.search_messages(
-                    "@animehikarixa", filter=enums.MessagesFilter.PHOTO
+                    "animehikarixa", filter=enums.MessagesFilter.PHOTO
                 )
             ]
         ),
@@ -94,7 +94,7 @@ async def nimek(_, message):
             [
                 tai.photo.file_id
                 async for tai in app2.search_messages(
-                    "@Anime_WallpapersHD", filter=enums.MessagesFilter.PHOTO
+                    "Anime_WallpapersHD", filter=enums.MessagesFilter.PHOTO
                 )
             ]
         ),
@@ -112,7 +112,7 @@ async def ppk(_, message):
             [
                 jir.photo.file_id
                 async for jir in app2.search_messages(
-                    "@mentahanppcp", filter=enums.MessagesFilter.PHOTO
+                    "mentahanppcp", filter=enums.MessagesFilter.PHOTO
                 )
             ]
         ),
@@ -131,7 +131,7 @@ async def ppk(_, message):
             [
                 tai.photo.file_id
                 async for tai in app2.search_messages(
-                    "@ppcpcilik", filter=enums.MessagesFilter.PHOTO
+                    "ppcpcilik", filter=enums.MessagesFilter.PHOTO
                 )
             ]
         ),
@@ -149,7 +149,7 @@ async def bugil(_, message):
             [
                 lol.photo.file_id
                 async for lol in app2.search_messages(
-                    "@mm_kyran", filter=enums.MessagesFilter.PHOTO
+                    "mm_kyran", filter=enums.MessagesFilter.PHOTO
                 )
             ]
         ),
