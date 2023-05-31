@@ -82,7 +82,6 @@ async def everyone(_, message):
     await asyncio.sleep(e.value)                    
         
 @app.on_message(filters.command(["stop","cancel"]))
-async def stop(_, message):
 @adminsOnly("can_change_info")
 async def stop(_, message):
   global stopProcess
