@@ -32,3 +32,6 @@ psutil
 httpx[http2]
 cachetools
 pyrate-limiter
+SpeechRecognition
+py-extract
+py-trans
