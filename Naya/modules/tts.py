@@ -7,23 +7,16 @@ import traceback
 from asyncio import get_running_loop
 from io import BytesIO
 import asyncio
-import os
 import speech_recognition as sr
 import ffmpeg
 from gtts import gTTS
-from pyrogram import Client, filters
-from pyrogram.types import Message
 from googletrans import Translator
-from gtts import gTTS
-from pyrogram import filters
-from pyrogram.types import Message
+from pyrogram import *
+from pyrogram.types import *
 import os
-from pyrogram import filters, Client
-from pyrogram.types import Message
 from py_trans import Async_PyTranslator
 from Naya.utils.tools import *
 from Naya import *
-from Naya import app
 
 __MODULE__ = "Voice"
 __HELP__ = """
