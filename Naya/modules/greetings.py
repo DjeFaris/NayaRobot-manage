@@ -75,7 +75,10 @@ loop.create_task(get_initial_captcha_cache())
 @app.on_message(filters.new_chat_members, group=welcome_captcha_group)
 @capture_err
 async def welcome(_, chat: Chat, message: Message):
-    
+    text = f"**Hai ! Selamat datang digrup {message.chat.title}**"
+    ajg = await get_welcome(chat.id)
+    if not ajg:
+        return await set_welcome(message.chat.id, text)
     for member in message.new_chat_members:
         try:
             if member.id in SUDOERS:
@@ -92,7 +95,7 @@ async def welcome(_, chat: Chat, message: Message):
 
             if member.is_bot:
                 continue
-            text = f"**Hai {member.mention}, Selamat datang digrup {member.chat.title}**"
+              
             await send_welcome_message(
                 chat=message.chat,
                 user_id=message.chat.id,
@@ -100,6 +103,7 @@ async def welcome(_, chat: Chat, message: Message):
                 )
         except Exception as e:
             await message.reply(f"{e}")
+
 
 async def send_welcome_message(chat: Chat, user_id: int, delete: bool = False):
     raw_text = await get_welcome(chat.id)
