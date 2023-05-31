@@ -6,14 +6,31 @@ Copyright (c) 2023 Kynan | TheHamkerCat
 import traceback
 from asyncio import get_running_loop
 from io import BytesIO
-
+import asyncio
+import os
+import speech_recognition as sr
+import ffmpeg
+from gtts import gTTS
+from pyrogram import Client, filters
+from pyrogram.types import Message
 from googletrans import Translator
 from gtts import gTTS
 from pyrogram import filters
 from pyrogram.types import Message
-
+import os
+from pyrogram import filters, Client
+from pyrogram.types import Message
+from py_trans import Async_PyTranslator
+from Naya.utils.tools import *
+from Naya import *
 from Naya import app
 
+__MODULE__ = "Voice"
+__HELP__ = """
+/tr [kode bahasa] - Terjemahkan bahasa.
+/tts [balas teks] - Convert text ke pesan suara.
+/stt [balas pesan suara] - Convert pesan suara ke text.
+"""
 
 def convert(text):
     audio = BytesIO()
@@ -43,3 +60,93 @@ async def text_to_speech(_, message: Message):
         await m.edit(e)
         e = traceback.format_exc()
         print(e)
+
+
+
+@app.on_message(filters.command(["tr"]))
+async def pytrans_tr(_, message: Message):
+  tr_msg = await eor(message, text="`Processing...`")
+  r_msg = message.reply_to_message
+  args = get_arg(message)
+  if r_msg:
+    if r_msg.text:
+      to_tr = r_msg.text
+    else:
+      return await tr_msg.edit("`Mohon Balas Ke Pesan..`")
+    # Checks if dest lang is defined by the user
+    if not args:
+      return await tr_msg.edit(f"`Gunakan tr <kode_bahasa> <kata> atau tr id <balas ke pesan>`")
+    # Setting translation if provided
+    else:
+      sp_args = args.split(" ")
+      if len(sp_args) == 2:
+        dest_lang = sp_args[0]
+        tr_engine = sp_args[1]
+      else:
+        dest_lang = sp_args[0]
+        tr_engine = "google"
+  elif args:
+    # Splitting provided arguments in to a list
+    a_conts = args.split(None, 2)
+    # Checks if translation engine is defined by the user
+    if len(a_conts) == 3:
+      dest_lang = a_conts[0]
+      tr_engine = a_conts[1]
+      to_tr = a_conts[2]
+    else:
+      dest_lang = a_conts[0]
+      to_tr = a_conts[1]
+      tr_engine = "google"
+  # Translate the text
+  py_trans = Async_PyTranslator(provider=tr_engine)
+  translation = await py_trans.translate(to_tr, dest_lang)
+  # Parse the translation message
+  if translation["status"] == "success":
+    tred_txt = f"""
+**Translation**: `{translation["engine"]}`
+**Translated to:** `{translation["dest_lang"]}`
+**Translation:**
+`{translation["translation"]}`
+"""
+    if len(tred_txt) > 4096:
+      await tr_msg.edit("`Teks yang anda berikan terlalu panjang, ini bisa memakakan waktu`\n`Tunggu sebentar..`")
+      tr_txt_file = open("translated.txt", "w+")
+      tr_txt_file.write(tred_txt)
+      tr_txt_file.close()
+      await tr_msg.reply_document("translate.txt")
+      os.remove("ptranslated.txt")
+      await tr_msg.delete()
+    else:
+      await tr_msg.edit(tred_txt)
+      
+@app.on_message(filters.command(["stt"]))
+async def speech_to_text(client, message):
+    reply = message.reply_to_message
+    if not (reply and reply.voice):
+        return await message.reply("Mohon Balas Ke Pesan Suara")
+    ajg = await message.reply("`Processing...`")
+    monyet = await client.download_media(message=reply, file_name='Naya/downloads/voice.ogg')
+
+    @run_in_exc
+    def convert_to_raw(audio_original, raw_file_name):
+        stream = ffmpeg.input(audio_original)
+        stream = ffmpeg.output(stream, raw_file_name, format="wav", acodec="pcm_s16le", ac=2, ar="48k", loglevel="error").overwrite_output().run()
+        return raw_file_name
+
+
+    recognizer = sr.Recognizer()
+    babi = await convert_to_raw(monyet, 'Naya/downloads/voice.wav')
+    with sr.AudioFile(babi) as source:
+        audio = recognizer.record(source)
+
+    try:
+        text = recognizer.recognize_google(audio, language="id-ID")
+    except sr.UnknownValueError:
+        return await ajg.edit("Mohon Periksa Apakah Itu Pesan Suara..")
+    except sr.RequestError as e:
+        return await ajg.edit("Error {0}".format(e))
+    await ajg.edit(
+        text=text
+    )
+    os.remove(babi)
+    os.remove(monyet)
