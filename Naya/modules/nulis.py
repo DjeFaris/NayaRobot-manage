@@ -33,8 +33,7 @@ async def nulie(_, message):
         naya = message.reply_to_message.text
     else:
         naya = message.text.split(None, 1)[1]
-    nan = await eor(
-                message, text="`Processing...`")
+    nan = await eor(message, text="Processing...")
     ajg = requests.get(f"https://api.sdbots.tk/write?text={naya}").url
     await message.reply_photo(
         photo=ajg, caption=f"<b>Ditulis Oleh :</b> {app.me.mention}"
