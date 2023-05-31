@@ -43,11 +43,11 @@ SUPPORTED_TYPES = ["jpeg", "png", "webp"]
 @app.on_message(filters.command(["getsticker"]))
 async def getsticker_(self: Client, ctx: Message):
     if not ctx.reply_to_message or ctx.reply_to_message.sticker:
-        await eor(message, text="`Ini bukan stiker!`"))
+        await eor(message, text="`Ini bukan stiker!`")
     else:
         sticker = ctx.reply_to_message.sticker
         if sticker.is_animated:
-            await eor(message, text="`Harap balas ke non animasi.`"))
+            await eor(message, text="`Harap balas ke non animasi.`")
         else:
             with tempfile.TemporaryDirectory() as tempdir:
                 path = os.path.join(tempdir, "getsticker")
