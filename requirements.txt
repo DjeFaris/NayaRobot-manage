@@ -35,3 +35,4 @@ pyrate-limiter
 SpeechRecognition
 py-extract
 py-trans
+pymediainfo
