@@ -22,26 +22,27 @@ from Naya.utils.filter_groups import blacklist_filters_group
 
 __MODULE__ = "Blacklist"
 __HELP__ = """
-/blacklisted - Get All The Blacklisted Words In The Chat.
-/blacklist [WORD|SENTENCE] - Blacklist A Word Or A Sentence.
-/whitelist [WORD|SENTENCE] - Whitelist A Word Or A Sentence.
+/blacklisted or /listbl- Get All The Blacklisted Words In The Chat.
+/blacklist or /bl [balas pesan|berikan kata] - Blacklist A Word Or A Sentence.
+/whitelist or /wl [kata kunci] - Whitelist A Word Or A Sentence.
 """
 
 
-@app.on_message(filters.command("blacklist") & ~filters.private)
+@app.on_message(filters.command(["blacklist", "bl"]) & ~filters.private)
 @adminsOnly("can_restrict_members")
 async def save_filters(_, message):
-    if len(message.command) < 2:
-        return await message.reply_text("Usage:\n/blacklist [WORD|SENTENCE]")
-    word = message.text.split(None, 1)[1].strip()
-    if not word:
-        return await message.reply_text("**Usage**\n__/blacklist [WORD|SENTENCE]__")
+    if message.reply_to_message:
+        kata = message.reply_to_message.text
+    else:
+        kata = message.text.split(None, 1)[1].strip()
+    if not kata:
+        return await message.reply_text("**Usage**\n__/blacklist [balas pesan/berikan kata]__")
     chat_id = message.chat.id
-    await save_blacklist_filter(chat_id, word)
-    await message.reply_text(f"__**Blacklisted {word}.**__")
+    await save_blacklist_filter(chat_id, kata)
+    await message.reply_text(f"__**Blacklisted {kata}.**__")
 
 
-@app.on_message(filters.command("blacklisted") & ~filters.private)
+@app.on_message(filters.command(["blacklisted", "listbl"]) & ~filters.private)
 @capture_err
 async def get_filterss(_, message):
     data = await get_blacklisted_words(message.chat.id)
@@ -54,18 +55,19 @@ async def get_filterss(_, message):
         await message.reply_text(msg)
 
 
-@app.on_message(filters.command("whitelist") & ~filters.private)
+@app.on_message(filters.command(["whitelist", "wl"]) & ~filters.private)
 @adminsOnly("can_restrict_members")
 async def del_filter(_, message):
-    if len(message.command) < 2:
-        return await message.reply_text("Usage:\n/whitelist [WORD|SENTENCE]")
-    word = message.text.split(None, 1)[1].strip()
-    if not word:
-        return await message.reply_text("Usage:\n/whitelist [WORD|SENTENCE]")
+    if message.reply_to_message:
+        kata = message.reply_to_message.text
+    else:
+        kata = message.text.split(None, 1)[1].strip()
+    if not kata:
+        return await message.reply_text("**Usage**\n__/whitelist [berikan kata]__")
     chat_id = message.chat.id
-    deleted = await delete_blacklist_filter(chat_id, word)
+    deleted = await delete_blacklist_filter(chat_id, kata)
     if deleted:
-        return await message.reply_text(f"**Whitelisted {word}.**")
+        return await message.reply_text(f"**Whitelisted {kata}.**")
     await message.reply_text("**No such blacklist filter.**")
 
 
