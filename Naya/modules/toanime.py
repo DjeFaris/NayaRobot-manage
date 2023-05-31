@@ -6,7 +6,8 @@
 # FULL MONGO NIH JING FIX MULTI CLIENT
 # Credits : TomiX
 
-
+import random
+from random import choice
 import os
 import asyncio
 import time
