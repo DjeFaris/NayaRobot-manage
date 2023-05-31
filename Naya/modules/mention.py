@@ -32,10 +32,10 @@ async def everyone(_, message):
           await message.reply("-› Sudah ada proses yang sedang berlangsung dalam obrolan ini. Silakan / stop untuk memulai yang baru.")
         else:  
           chatQueue.append(message.chat.id)
-          if len(message.command) > 1:
-            inputText = " ".join(message.command[1:])
-          elif len(message.command) == 1:
-            inputText = ""    
+          if message.reply_to_message:
+              inputText = message.reply_to_message.text
+          else:
+              inputText = message.text.split(None, 1)[1]
           membersList = []
           async for member in app.get_chat_members(message.chat.id):
             if member.user.is_bot == True:
@@ -54,10 +54,10 @@ async def everyone(_, message):
               while j < 10:
                 user = membersList.pop(0)
                 if user.username == None:
-                  text1 += f"{user.mention} "
+                  text1 += f"👤 {user.mention}\n"
                   j+=1
                 else:
-                  text1 += f"@{user.username} "
+                  text1 += f"👤 @{user.username}\n"
                   j+=1
               try:     
                 await app.send_message(message.chat.id, text1)
@@ -72,9 +72,9 @@ async def everyone(_, message):
                 pass  
               i = i+j
           if i == lenMembersList:    
-            await message.reply(f"-› Berhasil menyebutkan **jumlah total {i} anggota**.\n-› Bot dan akun yang dihapus ditolak.") 
+            await message.reply(f"-› Berhasil memotong **jumlah total {i} manusia**.\n-› Bot dan akun yang dihapus ditolak.") 
           else:
-            await message.reply(f"-› Berhasil menyebutkan **{i} anggota.**\n-› Bot dan akun yang dihapus ditolak.")    
+            await message.reply(f"-› Berhasil memotong **{i} manusia.**\n-› Bot dan akun yang dihapus ditolak.")    
           chatQueue.remove(message.chat.id)
     else:
       await message.reply("-› Maaf, **hanya admin** yang dapat menjalankan perintah ini.")  
