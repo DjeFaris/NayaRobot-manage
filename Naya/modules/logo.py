@@ -72,13 +72,13 @@ async def logo_gen(_, message):
         fpath_ = glob.glob("Naya/resources/fonts/*")
         font_ = random.choice(fpath_)
     if len(name) <= 8:
-        fnt_size = 170
-        strke = 15
-    elif len(name) >= 9:
-        fnt_size = 100
+        fnt_size = 120
         strke = 10
+    elif len(name) >= 9:
+        fnt_size = 50
+        strke = 5
     else:
-        fnt_size = 200
+        fnt_size = 100
         strke = 20
     img = Image.open(bg_)
     draw = ImageDraw.Draw(img)
