@@ -93,7 +93,7 @@ loop.create_task(get_initial_captcha_cache())
 @capture_err
 async def welcome(chat: Chat, message: Message):
     
-    await send_welcome_message(chat)
+    await send_welcome_message(chat, message.from_user.id)
 
 
 async def send_welcome_message(chat: Chat, user_id: int, delete: bool = False):
