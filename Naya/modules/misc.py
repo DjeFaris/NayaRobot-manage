@@ -35,10 +35,6 @@ __HELP__ = """
 /cheat [Language] [Query]
     Get Programming Related Help
 
-/tr [LANGUAGE_CODE]
-    Translate A Message
-    Ex: /tr en
-
 /json [URL]
     Get parsed JSON response from a rest API.
 
@@ -204,27 +200,6 @@ async def random(_, message):
 
 
 # Translate
-@app.on_message(filters.command("tr"))
-@capture_err
-async def tr(_, message):
-    if len(message.command) != 2:
-        return await message.reply_text("/tr [LANGUAGE_CODE]")
-    lang = message.text.split(None, 1)[1]
-    if not message.reply_to_message or not lang:
-        return await message.reply_text(
-            "Reply to a message with /tr [language code]"
-            + "\nGet supported language list from here -"
-            + " https://py-googletrans.readthedocs.io/en"
-            + "/latest/#googletrans-languages"
-        )
-    reply = message.reply_to_message
-    text = reply.text or reply.caption
-    if not text:
-        return await message.reply_text("Reply to a text to translate it")
-    result = await arq.translate(text, lang)
-    if not result.ok:
-        return await message.reply_text(result.result)
-    await message.reply_text(result.result.translatedText)
 
 
 @app.on_message(filters.command("json"))
@@ -247,10 +222,3 @@ async def json_fetch(_, message):
             )
     except Exception as e:
         await m.edit(str(e))
-
-
-@app.on_message(filters.command(["kickme", "banme"]))
-async def kickbanme(_, message):
-    await message.reply_text(
-        "Haha, it doesn't work that way, You're stuck with everyone here."
-    )
