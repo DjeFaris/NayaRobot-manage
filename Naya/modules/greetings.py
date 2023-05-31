@@ -95,7 +95,7 @@ async def welcome(_, chat: Chat, message: Message):
             jing = f"**Hai {member.mention}, Selamat datang digrup {member.chat.title}**"
             await send_welcome_message(
               chat,
-              message=jing,
+              jing,
               True,
             )
         except Exception as e:
