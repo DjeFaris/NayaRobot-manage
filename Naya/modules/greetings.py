@@ -73,7 +73,6 @@ loop.create_task(get_initial_captcha_cache())
 
 
 @app.on_message(filters.new_chat_members, group=welcome_captcha_group)
-@capture_err
 async def welcome(_, chat: Chat, message: Message):
     
     for member in message.new_chat_members:
