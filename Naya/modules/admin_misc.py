@@ -15,6 +15,7 @@ __HELP__ = """
 /stchat - Change The Name Of A Group/Channel.
 /setgpic - Change The PFP Of A Group/Channel.
 /sutitel - Change The Administrator Title Of An Admin.
+/kickme - Coba sendiri.
 """
 
 
@@ -53,6 +54,23 @@ async def set_user_title(_, message):
     await message.reply_text(
         f"Successfully Changed {from_user.mention}'s Admin Title To {title}"
     )
+
+@app.on_message(filters.command(["kickme"]))
+@capture_err
+async def kickme(_, message):
+    reason = None
+    if len(message.text.split()) >= 2:
+        reason = message.text.split(None, 1)[1]
+    try:
+        await message.chat.ban_member(message.from_user.id)
+        txt = f"Pengguna {message.from_user.mention} menendang dirinya sendiri. Mungkin dia sedang frustasi 😕"
+        txt += f"\n<b>Alasan</b>: {reason}" if reason else "-"
+        await message.reply_text(txt)
+        await message.chat.unban_member(message.from_user.id)
+    except RPCError as ef:
+        await message.reply_text(f"Sepertinya ada error, silahkan report ke owner saya. \nERROR: {str(ef)}")
+    except Exception as err:
+        await message.reply(f"ERROR: {err}")
 
 
 @app.on_message(filters.command("setgpic") & ~filters.private)
