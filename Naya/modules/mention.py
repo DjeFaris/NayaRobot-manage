@@ -16,7 +16,6 @@ stopProcess = False
 
 @app.on_message(filters.command(["tagall","mentionall","all","mention"]))
 @adminsOnly("can_change_info")
-@capture_err
 async def everyone(_, message):
   global stopProcess
   try: 
@@ -85,7 +84,7 @@ async def everyone(_, message):
 @app.on_message(filters.command(["stop","cancel"]))
 async def stop(_, message):
 @adminsOnly("can_change_info")
-@capture_err
+async def stop(_, message):
   global stopProcess
   try:
     try:
