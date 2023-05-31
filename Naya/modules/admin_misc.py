@@ -56,7 +56,6 @@ async def set_user_title(_, message):
     )
 
 @app.on_message(filters.command(["kickme"]))
-@capture_err
 async def kickme(_, message):
     reason = None
     if len(message.text.split()) >= 2:
