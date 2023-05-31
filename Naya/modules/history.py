@@ -75,33 +75,34 @@ async def set_mataa(self: Client, ctx: Message):
     else:
         await ctx.reply_text("Parameter tidak diketahui, gunakan hanya parameter on/off.", del_in=6)
 
+
 @app.on_message(filters.command(["sg"]))
 @capture_err
 async def _(_, message):
     args = await extract_user(message)
     lol = await eor(message, text="`Processing...`")
-    if args:
+    if not args:
+        return await lol.edit("<b>User tidak ditemukan</b>")
+    try:
+        user_id = (await app2.get_users(args)).id
+    except Exception:
         try:
-            user = await app.get_users(args)
+            user_id = int(message.command[1])
         except Exception as error:
             return await lol.edit(error)
     bot = ["@Sangmata_bot", "@SangMata_beta_bot"]
     getbot = random.choice(bot)
-    try:
-        txt = await app2.send_message(getbot, f"{user.id}")
-    except YouBlockedUser:
-        await app2.unblock_user(getbot)
-        txt = await app2.send_message(getbot, f"{user.id}")
+    await app2.unblock_user(getbot)
+    txt = await client.send_message(getbot, user_id)
+    await asyncio.sleep(4)
     await txt.delete()
-    await asyncio.sleep(5)
-#    await lol.delete()
-    
-    async for i in app2.search_messages(getbot, query="History", limit=1):
-        if not i:
-            NotFound = await app.send_message("`Bot sedang eror ! Tunggu beberapa saat lagi.`")
-        elif i:
-            biji = await app2.send_message(GBAN_LOG_GROUP_ID, f"{i.text}")
-            sg = app.get_messages(GBAN_LOG_GROUP_ID, biji.txt + 1)
-            await message.reply(sg.text)
-    user_info = await app2.resolve_peer(bot)
-    return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
+    await lol.delete()
+    async for name in app2.search_messages(getbot, limit=2):
+        if not name.text:
+            await message.reply(
+                f"❌ {getbot} Tidak dapat merespon permintaan ", quote=True
+            )
+        else:
+            await message.reply(name.text, quote=True)
+    user_info = await app2.resolve_peer(getbot)
+    return await app2.invoke(DeleteHistory(peer=user_info, max_id=0, revoke=True))
