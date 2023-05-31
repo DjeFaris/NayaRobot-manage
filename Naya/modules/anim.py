@@ -109,7 +109,7 @@ async def love(client: Client, message: Message):
         return
     animation_interval = 1
     animation_ttl = range(0, 14)
-    await message.edit("🧡💚❤️💙💛🖤💜💝💘💝")
+    await eor(message, text="🧡💚❤️💙💛🖤💜💝💘💝")
     animation_chars = [
         "❤️🧡💛💚💙💜🖤💕💞💓",
         "🧡💚❤️💙💛🖤💜💝💘💝",
