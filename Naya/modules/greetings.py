@@ -95,8 +95,7 @@ async def welcome(_, chat: Chat, message: Message):
             text = f"**Hai {member.mention}, Selamat datang digrup {member.chat.title}**"
             await send_welcome_message(
               chat,
-              text=text,
-              True,
+              message.from_user.id,
             )
         except Exception as e:
             await message.reply(f"{e}")
