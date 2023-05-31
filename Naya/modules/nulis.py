@@ -32,7 +32,7 @@ async def nulie(_, message):
     if message.reply_to_message:
         naya = message.reply_to_message.text
     else:
-        naya = message.text.split(None, 1)[1]
+        naya = message.text.split(" ", 1)[1]
     nan = await eor(
                 message, text="`Processing...`")
     ajg = requests.get(f"https://api.sdbots.tk/write?text={naya}").url
