@@ -93,7 +93,7 @@ async def _(_, message):
     bot = ["@Sangmata_bot", "@SangMata_beta_bot"]
     getbot = random.choice(bot)
     await app2.unblock_user(getbot)
-    txt = await client.send_message(getbot, user_id)
+    txt = await app2.send_message(getbot, user_id)
     await asyncio.sleep(4)
     await txt.delete()
     await lol.delete()
