@@ -291,8 +291,9 @@ async def kang_sticker(self: Client, ctx: Message):
                 ],
             ]
         )
-        await prog_msg.edit_msg("<b>Stiker berhasil dicuri!</b>\n<b>Emoji:</b> {sticker_emoji}"),
+        await prog_msg.edit_msg("<b>Stiker berhasil dicuri!</b>\n<b>Emoji:</b> {sticker_emoji}",
         reply_markup=markup,
+        )
         )
         # Cleanup
         await self.delete_messages(chat_id=LOG_GROUP_ID, message_ids=msg_.id, revoke=True)
