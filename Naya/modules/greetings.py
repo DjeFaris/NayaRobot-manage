@@ -2,7 +2,7 @@
 MIT License
 Copyright (c) 2023 Kynan | TheHamkerCat
 
-"""
+
 
 import asyncio
 import os
@@ -296,3 +296,4 @@ async def get_welcome_func(_, message):
     await send_welcome_message(chat, message.from_user.id)
 
     await message.reply_text(f'`{welcome.replace("`", "")}`')
+"""
