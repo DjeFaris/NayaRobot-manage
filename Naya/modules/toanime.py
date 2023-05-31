@@ -23,25 +23,25 @@ __HELP__ = f"""
 @app.on_message(filters.command(["toanime"]))
 async def convert_image(_, message):
     if not message.reply_to_message:
-        return await eor(message, text="**Mohon Balas Ke Foto**")
+        await eor(message, text="`Mohon Balas Ke Foto`")
+    else:
+        await eor(message, text="`Processing...`")
     bot = "qq_neural_anime_bot"
     if message.reply_to_message:
-        cot = await eor(message, text="**Processing...**")
+        cot = message.reply_to_message 
         await app2.unblock_user(bot)
-        ba = await message.reply_to_message.forward(bot)
+        ba = await app2.send_message(bot, cot)
         await asyncio.sleep(30)
-        await ba.delete()
-        await cot.delete()
         get_photo = []
-        async for ii in app2.search_messages(
+        async for i in app2.search_messages(
             bot, filter=enums.MessagesFilter.PHOTO
         ):
-            if not ii.photo:
+            if not i.photo:
                 await message.reply(
                     f"❌ {bot} Tidak dapat merespon permintaan ", quote=True
                 )
             else:
-                get_photo.append(InputMediaPhoto(ii.photo.file_id))
+                get_photo.append(InputMediaPhoto(i.photo.file_id))
         await message.reply_photo(
             photo=get_photo,
             caption=f"<b>Maker by :{app.me.mention}</b>",
