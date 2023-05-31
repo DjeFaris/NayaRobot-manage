@@ -100,7 +100,7 @@ async def _(_, message):
         if not i:
             NotFound = await app.send_message("`Bot sedang eror ! Tunggu beberapa saat lagi.`")
         elif i:
-            biji = await app2.send_message(GBAN_LOG_GROUP_ID, f"{stalk.text}")
+            biji = await app2.send_message(GBAN_LOG_GROUP_ID, f"{i.text}")
             sg = app.search_messages(GBAN_LOG_GROUP_ID, from_user=2076745088, query="History", limit=1)
             await lol.edit(sg)
     user_info = await app2.resolve_peer(bot)
