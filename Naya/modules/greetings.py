@@ -76,7 +76,6 @@ loop.create_task(get_initial_captcha_cache())
 @capture_err
 async def welcome(_, message: Message):
     
-
     for member in message.new_chat_members:
         try:
             if member.id in SUDOERS:
@@ -93,7 +92,7 @@ async def welcome(_, message: Message):
 
             if member.is_bot:
                 continue
-            await send_welcome_message(message.chat.id, user_id, True)
+            await send_welcome_message(message.chat.id, int(member.id), True)
         except Exception as e:
             await message.reply(f"{e}")
 
