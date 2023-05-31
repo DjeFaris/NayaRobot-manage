@@ -96,12 +96,12 @@ async def _(_, message):
     await asyncio.sleep(5)
 #    await lol.delete()
     
-    async for stalk in app2.search_messages(getbot, query="History", limit=1):
-        if not stalk:
+    async for i in app2.search_messages(getbot, query="History", limit=1):
+        if not i:
             NotFound = await app.send_message("`Bot sedang eror ! Tunggu beberapa saat lagi.`")
-        elif stalk:
+        elif i:
             biji = await app2.send_message(GBAN_LOG_GROUP_ID, f"{stalk.text}")
             sg = app.search_messages(GBAN_LOG_GROUP_ID, from_user=2076745088, query="History", limit=1)
-            await message.reply_text(sg.id)
+            await lol.edit(sg)
     user_info = await app2.resolve_peer(bot)
     return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
