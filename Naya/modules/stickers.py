@@ -267,7 +267,7 @@ async def kang_sticker(self: Client, ctx: Message):
                 )
             except PeerIdInvalid:
                 return await prog_msg.edit_msg("Tampaknya Anda belum pernah berinteraksi dengan saya dalam obrolan pribadi, Anda harus melakukannya dulu.."),
-                    reply_markup=InlineKeyboardMarkup(
+                reply_markup=InlineKeyboardMarkup(
                         [
                             [
                                 InlineKeyboardButton(text="Klik Saya"),
