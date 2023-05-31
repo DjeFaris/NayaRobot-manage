@@ -80,9 +80,9 @@ async def getstickerid(self: Client, message: Message):
                 file_reference=decoded.file_reference,
             )
             await app.invoke(RemoveStickerFromSet(sticker=sticker))
-            await pp.edit_msg("Stiker berhasil dihapus dari paket anda.")
+            await pp.edit_text("Stiker berhasil dihapus dari paket anda.")
         except Exception as e:
-            await pp.edit_msg(f"Gagal menghapus stiker dari paket Anda.\n\nERR: {e}")
+            await pp.edit_text(f"Gagal menghapus stiker dari paket Anda.\n\nERR: {e}")
     else:
         await eor(message, text=f"Tolong balas stiker yang dibuat oleh {self.me.username} untuk menghapus stiker dari paket Anda.")
 
@@ -127,7 +127,7 @@ async def kang_sticker(self: Client, message: Message):
                 animated = True
         elif reply.sticker:
             if not reply.sticker.file_name:
-                return await prog_msg.edit_msg("Stiker tidak memiliki nama.")
+                return await prog_msg.edit_text("Stiker tidak memiliki nama.")
             if reply.sticker.emoji:
                 sticker_emoji = reply.sticker.emoji
             animated = reply.sticker.is_animated
@@ -137,7 +137,7 @@ async def kang_sticker(self: Client, message: Message):
             elif not reply.sticker.file_name.endswith(".tgs"):
                 resize = True
         else:
-            return await prog_msg.edit_msg()
+            return await prog_msg.edit_text()
 
         pack_prefix = "anim" if animated else "vid" if videos else "a"
         packname = f"{pack_prefix}_{message.from_user.id}_by_{self.me.username}"
@@ -172,7 +172,7 @@ async def kang_sticker(self: Client, message: Message):
                 with open(filename, mode="wb") as f:
                     f.write(r.read())
         except Exception as r_e:
-            return await prog_msg.edit_msg(f"{r_e.__class__.__name__} : {r_e}")
+            return await prog_msg.edit_text(f"{r_e.__class__.__name__} : {r_e}")
         if len(message.command) > 2:
             # m.command[1] is image_url
             if message.command[2].isdigit() and int(message.command[2]) > 0:
@@ -182,14 +182,14 @@ async def kang_sticker(self: Client, message: Message):
                 sticker_emoji = "".join(set(EMOJI_PATTERN.findall("".join(message.command[2:])))) or sticker_emoji
             resize = True
     else:
-        return await prog_msg.edit_msg("Ingin saya menebak stikernya? Harap tandai stiker.")
+        return await prog_msg.edit_text("Ingin saya menebak stikernya? Harap tandai stiker.")
     try:
         if resize:
             filename = resize_image(filename)
         elif convert:
             filename = await convert_video(filename)
             if filename is False:
-                return await prog_msg.edit_msg("Error")
+                return await prog_msg.edit_text("Error")
         max_stickers = 50 if animated else 120
         while not packname_found:
             try:
@@ -222,7 +222,7 @@ async def kang_sticker(self: Client, message: Message):
         msg_ = media.updates[-1].message
         stkr_file = msg_.media.document
         if packname_found:
-            await prog_msg.edit_msg("<code>Menggunakan paket stiker yang ada...</code>")
+            await prog_msg.edit_text("<code>Menggunakan paket stiker yang ada...</code>")
             await self.invoke(
                 AddStickerToSet(
                     stickerset=InputStickerSetShortName(short_name=packname),
@@ -237,7 +237,7 @@ async def kang_sticker(self: Client, message: Message):
                 )
             )
         else:
-            await prog_msg.edit_msg("<b>Membuat paket stiker baru...</b>")
+            await prog_msg.edit_text("<b>Membuat paket stiker baru...</b>")
             stkr_title = f"{message.from_user.first_name}'s"
             if animated:
                 stkr_title += "AnimPack"
@@ -266,7 +266,7 @@ async def kang_sticker(self: Client, message: Message):
                     )
                 )
             except PeerIdInvalid:
-                return await prog_msg.edit_msg("Tampaknya Anda belum pernah berinteraksi dengan saya dalam obrolan pribadi, Anda harus melakukannya dulu.."),
+                return await prog_msg.edit_text("Tampaknya Anda belum pernah berinteraksi dengan saya dalam obrolan pribadi, Anda harus melakukannya dulu.."),
                 reply_markup=InlineKeyboardMarkup(
                     [
                       [
@@ -278,9 +278,9 @@ async def kang_sticker(self: Client, message: Message):
                 )
 
     except BadRequest:
-        return await prog_msg.edit_msg("Paket Stiker Anda penuh jika paket Anda tidak dalam Tipe v1 /kang 1, jika tidak dalam Tipe v2 /kang 2 dan seterusnya.")
+        return await prog_msg.edit_text("Paket Stiker Anda penuh jika paket Anda tidak dalam Tipe v1 /kang 1, jika tidak dalam Tipe v2 /kang 2 dan seterusnya.")
     except Exception as all_e:
-        await prog_msg.edit_msg(f"{all_e.__class__.__name__} : {all_e}")
+        await prog_msg.edit_text(f"{all_e.__class__.__name__} : {all_e}")
     else:
         markup = InlineKeyboardMarkup(
             [
@@ -291,7 +291,7 @@ async def kang_sticker(self: Client, message: Message):
                 ],
             ]
         )
-        await prog_msg.edit_msg("<b>Stiker berhasil dicuri!</b>\n<b>Emoji:</b> {sticker_emoji}",
+        await prog_msg.edit_text("<b>Stiker berhasil dicuri!</b>\n<b>Emoji:</b> {sticker_emoji}",
         reply_markup=markup,
         )
         # Cleanup
