@@ -19,8 +19,7 @@ async def _(_, message):
         video = random.choice(asupannya)
         await message.reply_video(
             video,
-            caption=f"<b>Asupan By <a href=tg://user?id={app.me.id}>{app.me.first_name} {app.me.last_name or ''}</a></b>",
-            reply_to_message_id=message.id,
+            caption=f"<b>Asupan By {app.me.mention}</b>",
         )
         await y.delete()
     except Exception:
