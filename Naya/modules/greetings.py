@@ -5,19 +5,9 @@ import os
 from datetime import datetime
 from random import shuffle
 
-from pyrogram import filters
-from pyrogram.errors.exceptions.bad_request_400 import (
-    ChatAdminRequired,
-    UserNotParticipant,
-)
-from pyrogram.types import (
-    Chat,
-    ChatPermissions,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-    User,
-)
+from pyrogram import *
+from pyrogram.errors.exceptions.bad_request_400 import *
+from pyrogram.types import *
 
 from Naya import SUDOERS, WELCOME_DELAY_KICK_SEC, app
 from Naya.core.decorators.errors import capture_err
