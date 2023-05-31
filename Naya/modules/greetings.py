@@ -99,7 +99,7 @@ async def welcome(_, message: Message):
 
     # Mute new member and send message with button
     if not await is_captcha_on(message.chat.id):
-        return
+        return False
 
     for member in message.new_chat_members:
         try:
