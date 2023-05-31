@@ -42,8 +42,8 @@ async def convert_image(_, message):
                 )
             else:
                 get_photo.append(InputMediaPhoto(i.photo.file_id))
-                photo = get_photo
-        await photo.copy(
+                ajg = get_photo
+        await ajg.copy(
             caption=f"<b>Maker by :{app.me.mention}</b>",
             quote=True
         )
