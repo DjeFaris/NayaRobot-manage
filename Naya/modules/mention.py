@@ -14,7 +14,7 @@ chatQueue = []
 
 stopProcess = False
 
-@app.on_message(filters.command(["tagall","mentionall","all","mention"]))
+@app.on_message(filters.command(["tagall","mentionall","all","mention"], ["/", "@"]))
 @adminsOnly("can_change_info")
 async def everyone(_, message):
   global stopProcess
@@ -101,3 +101,10 @@ async def stop(_, message):
       await message.reply("-› Maaf, **hanya admin** yang dapat menjalankan perintah ini.")
   except FloodWait as e:
     await asyncio.sleep(e.value)
+
+
+__MODULE__ = "Tag All"
+__HELP__ = f"""
+/all atau @all [balas pesan/berikan pesan] - Tandai semua anggota dengan pesan atau tanpa pesan.
+/cancel atau /stop - Untuk membatalkan proses tagall.
+"""
