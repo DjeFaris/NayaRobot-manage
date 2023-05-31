@@ -111,8 +111,8 @@ home_keyboard_pm = InlineKeyboardMarkup(
 )
 
 home_text_pm = (
-    f"Halo ☺️ ! Saya adalah {BOT_NAME}. Saya dapat mengelola kebutuhan grup kamu. "
-    + "Silakan tambahkan saya sekarang ! "
+    f"Halo ☺️ ! Saya adalah {BOT_NAME}. Saya dapat mengelola kebutuhan grup kamu . Saya juga dapat memutar musik dan video di grup maupun di channel kamu. "
+    + "Ayo tambahkan saya sekarang ! "
 )
 
 keyboard = InlineKeyboardMarkup(
