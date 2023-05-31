@@ -35,7 +35,7 @@ def dt_tom():
         + "/"
         + dt()[0].split("/")[1]
         + "/"
-        + dt()[0].split("/")[2]
+        + dt()[0].split("/")[1]
     )
 
 
@@ -76,7 +76,7 @@ async def couple(_, message):
             couple_selection_message = f"""**Couple of the day:**
 {c1_mention} + {c2_mention} = ❤️
 
-__Pasangan baru hari ini dapat dipilih pada pukul 12 {tomorrow()}__"""
+__Pasangan baru esok dapat dipilih pada pukul 12 {tomorrow()}__"""
             await m.edit(couple_selection_message)
             couple = {"c1_id": c1_id, "c2_id": c2_id}
             await save_couple(chat_id, today(), couple)
