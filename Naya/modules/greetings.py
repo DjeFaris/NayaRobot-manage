@@ -74,7 +74,7 @@ loop.create_task(get_initial_captcha_cache())
 
 @app.on_message(filters.new_chat_members, group=welcome_captcha_group)
 @capture_err
-async def welcome(_, message: Message):
+async def welcome(_, chat: Chat, message: Message):
     
     for member in message.new_chat_members:
         try:
@@ -92,7 +92,7 @@ async def welcome(_, message: Message):
 
             if member.is_bot:
                 continue
-            await send_welcome_message(message.chat.id, member, True)
+            await send_welcome_message(chat, member, True)
         except Exception as e:
             await message.reply(f"{e}")
 
