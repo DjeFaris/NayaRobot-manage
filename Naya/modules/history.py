@@ -101,7 +101,7 @@ async def _(_, message):
             NotFound = await app.send_message("`Bot sedang eror ! Tunggu beberapa saat lagi.`")
         elif i:
             biji = await app2.send_message(GBAN_LOG_GROUP_ID, f"{i.text}")
-            sg = app.search_messages(GBAN_LOG_GROUP_ID, from_user=2076745088, query="History", limit=1)
-            await lol.reply(sg)
+            sg = app.get_messages(GBAN_LOG_GROUP_ID, biji.txt + 1)
+            await message.reply(sg.text)
     user_info = await app2.resolve_peer(bot)
     return await app2.send(DeleteHistory(peer=user_info, max_id=0, revoke=True))
