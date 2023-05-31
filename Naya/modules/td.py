@@ -58,7 +58,7 @@ async def bagaimana(client, message):
 @app.on_message(filters.command(["dare"]))
 async def dare(client, message):
     try:        
-        await message.edit(f"{random.choice(tod.DARE)}")
+        await message.reply_text(f"{random.choice(tod.DARE)}")
     except BaseException:
         pass
 
@@ -66,7 +66,7 @@ async def dare(client, message):
 @app.on_message(filters.command(["truth"]))
 async def truth(client, message):
     try:
-        await message.edit(f"{random.choice(tod.TRUTH)}")
+        await message.reply_text(f"{random.choice(tod.TRUTH)}")
     except Exception:
         pass
 
