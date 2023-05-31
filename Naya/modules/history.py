@@ -1,10 +1,9 @@
 import asyncio
 import random
-from pyrogram import filters
-from pyrogram.errors import YouBlockedUser
-from pyrogram.raw.functions.messages import DeleteHistory
-from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram import *
+from pyrogram.errors import *
+from pyrogram.raw.functions.messages import *
+from pyrogram.types import *
 from Naya.core.decorators.ratelimiter import ratelimiter
 from Naya.utils.dbfunctions import *
 from Naya.core.decorators.permissions import adminsOnly
