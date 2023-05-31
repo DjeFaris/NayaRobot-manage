@@ -65,10 +65,10 @@ async def pytrans_tr(_, message: Message):
     if r_msg.text:
       to_tr = r_msg.text
     else:
-      return await tr_msg.edit("`Mohon Balas Ke Pesan..`")
+      return await eor(message, text="`Mohon Balas Ke Pesan..`")
     # Checks if dest lang is defined by the user
     if not args:
-      return await tr_msg.edit(f"`Gunakan tr <kode_bahasa> <kata> atau tr id <balas ke pesan>`")
+      return await eor(message, text=f"`Gunakan tr <kode_bahasa> <kata> atau tr id <balas ke pesan>`")
     # Setting translation if provided
     else:
       sp_args = args.split(" ")
@@ -102,7 +102,7 @@ async def pytrans_tr(_, message: Message):
 `{translation["translation"]}`
 """
     if len(tred_txt) > 4096:
-      await tr_msg.edit("`Teks yang anda berikan terlalu panjang, ini bisa memakakan waktu`\n`Tunggu sebentar..`")
+      await eor(message, text="`Teks yang anda berikan terlalu panjang, ini bisa memakakan waktu`\n`Tunggu sebentar..`")
       tr_txt_file = open("translated.txt", "w+")
       tr_txt_file.write(tred_txt)
       tr_txt_file.close()
@@ -110,7 +110,7 @@ async def pytrans_tr(_, message: Message):
       os.remove("ptranslated.txt")
       await tr_msg.delete()
     else:
-      await tr_msg.edit(tred_txt)
+      await eor(message, text=tred_txt)
       
 @app.on_message(filters.command(["stt"]))
 async def speech_to_text(client, message):
