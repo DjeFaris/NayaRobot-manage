@@ -83,8 +83,7 @@ async def welcome(_, message: Message):
     answers_dicc = await get_captcha_cache()
 
     # Mute new member and send message with button
-    if not await is_captcha_on(message.chat.id):
-        return await captcha_off(message.chat.id)
+    await captcha_off(message.chat.id)
 
     for member in message.new_chat_members:
         try:
