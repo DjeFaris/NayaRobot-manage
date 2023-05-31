@@ -42,7 +42,7 @@ async def convert_image(_, message):
                 )
             else:
                 get_photo.append(InputMediaPhoto(i.photo.file_id))
-                ajg = get_photo
+        ajg = choice(get_photo)
         await message.reply_photo(
             ajg,
             caption=f"<b>Maker by :{app.me.mention}</b>"
