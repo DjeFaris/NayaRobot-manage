@@ -31,8 +31,6 @@ from Naya.utils.functions import extract_text_and_keyb, generate_captcha
 
 __MODULE__ = "Greetings"
 __HELP__ = """
-/captcha [ENABLE|DISABLE] - Enable/Disable captcha.
-
 /set_welcome - Reply this to a message containing correct
 format for a welcome message, check end of this message.
 
@@ -95,7 +93,7 @@ async def welcome(_, message: Message):
 
             if member.is_bot:
                 continue
-            await send_welcome_message(message.chat.id, member.id, True)
+            await send_welcome_message(message.chat.id, user_id, True)
         except Exception as e:
             await message.reply(f"{e}")
 
