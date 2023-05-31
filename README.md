@@ -65,7 +65,10 @@
 
 
 ## © Credits
+* Thanks To Allah Swt.
 * [Dan](https://github.com/delivrance/) for [Pyrogram](https://github.com/pyrogram/pyrogram)
 * [TheHamkerCat](https://github.com/TheHamkerCat) for [WilliamButcherBot](https://github.com/thehamkercat/WilliamButcherBot)
+* [Yasir](https://github.com/yasirarism) for [MissKatyPyro](https://github.com/yasirarism/MissKatyPyro)
+* [Tomi Setiawan](https://github.com/XtomiX)
 
 
