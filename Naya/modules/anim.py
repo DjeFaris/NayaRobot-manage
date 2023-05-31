@@ -1264,8 +1264,6 @@ async def santet(client: Client, message: Message):
 
 __MODULE__ = "Animasi"
 __HELP__ = f"""
-✘ Help For Animasi 1
-
 /dino or /babi - Coba sendiri.
 
 /santet or /gabut - Coba sendiri.
