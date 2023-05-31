@@ -43,9 +43,9 @@ async def convert_image(_, message):
             else:
                 get_photo.append(InputMediaPhoto(i.photo.file_id))
                 ajg = get_photo
-        await ajg.copy(
-            caption=f"<b>Maker by :{app.me.mention}</b>",
-            quote=True
+        await message.reply_photo(
+            ajg,
+            caption=f"<b>Maker by :{app.me.mention}</b>"
         )
         user_info = await app2.resolve_peer(bot)
         return await app2.invoke(DeleteHistory(peer=user_info, max_id=0, revoke=True))
