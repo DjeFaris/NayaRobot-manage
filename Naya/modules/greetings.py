@@ -73,6 +73,7 @@ loop.create_task(get_initial_captcha_cache())
 
 
 @app.on_message(filters.new_chat_members, group=welcome_captcha_group)
+@capture_err
 async def welcome(_, chat: Chat, message: Message):
     
     for member in message.new_chat_members:
@@ -93,9 +94,10 @@ async def welcome(_, chat: Chat, message: Message):
                 continue
             text = f"**Hai {member.mention}, Selamat datang digrup {member.chat.title}**"
             await send_welcome_message(
-              chat=message.chat,
-              text=text,
-            )
+                chat=message.chat,
+                user_id=message.chat.id,
+                delete=True,
+                )
         except Exception as e:
             await message.reply(f"{e}")
 
