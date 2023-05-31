@@ -17,8 +17,8 @@ async def _(_, message):
         ):
             asupannya.append(asupan)
         video = random.choice(asupannya)
-        await video.copy(
-            message.chat.id,
+        await message.reply_video(
+            video,
             caption=f"<b>Asupan By <a href=tg://user?id={app.me.id}>{app.me.first_name} {app.me.last_name or ''}</a></b>",
             reply_to_message_id=message.id,
         )
@@ -37,8 +37,8 @@ async def _(_, message):
         ):
             ayangnya.append(ayang)
         photo = random.choice(ayangnya)
-        await photo.copy(
-            message.chat.id,
+        await message.reply_photo(
+            photo,
             caption=f"<b>Ayang By <a href=tg://user?id={app.me.id}>{app.me.first_name} {app.me.last_name or ''}</a></b>",
             reply_to_message_id=message.id,
         )
@@ -57,8 +57,8 @@ async def _(_, message):
         ):
             ayang2nya.append(ayang2)
         photo = random.choice(ayang2nya)
-        await photo.copy(
-            message.chat.id,
+        await message.reply_photo(
+            photo,
             caption=f"<b>Ayang By <a href=tg://user?id={app.me.id}>{app.me.first_name} {app.me.last_name or ''}</a></b>",
             reply_to_message_id=message.id,
         )
