@@ -41,21 +41,21 @@ SUPPORTED_TYPES = ["jpeg", "png", "webp"]
 
 
 @app.on_message(filters.command(["getsticker"]))
-async def getsticker_(self: Client, ctx: Message):
-    if not ctx.reply_to_message or ctx.reply_to_message.sticker:
+async def getsticker_(self: Client, message: Message):
+    if not message.reply_to_message or message.reply_to_message.sticker:
         await eor(message, text="`Ini bukan stiker!`")
     else:
-        sticker = ctx.reply_to_message.sticker
+        sticker = message.reply_to_message.sticker
         if sticker.is_animated:
             await eor(message, text="`Harap balas ke non animasi.`")
         else:
             with tempfile.TemporaryDirectory() as tempdir:
                 path = os.path.join(tempdir, "getsticker")
             sticker_file = await self.download_media(
-                message=ctx.reply_to_message,
+                message=message.reply_to_message,
                 file_name=f"{path}/{sticker.set_name}.png",
             )
-            await ctx.reply_to_message.reply_document(
+            await message.reply_to_message.reply_document(
                 document=sticker_file,
                 caption=f"<b>Emoji:</b> {sticker.emoji}\n" f"<b>Sticker ID:</b> <code>{sticker.file_id}</code>\n\n" f"<b>Send by:</b> @{BOT_USERNAME}",
             )
@@ -63,17 +63,17 @@ async def getsticker_(self: Client, ctx: Message):
 
 
 @app.on_message(filters.command("stickerid"))
-async def getstickerid(self: Client, ctx: Message):
-    if ctx.reply_to_message.sticker:
-        await ctx.reply_msg(f"The ID of this sticker is: <code>{ctx.reply_to_message.sticker.file_id}</code>")
+async def getstickerid(self: Client, message: Message):
+    if message.reply_to_message.sticker:
+        await message.reply_msg(f"The ID of this sticker is: <code>{message.reply_to_message.sticker.file_id}</code>")
 
 
 @app.on_message(filters.command("unkang"))
-async def getstickerid(self: Client, ctx: Message):
-    if ctx.reply_to_message.sticker:
+async def getstickerid(self: Client, message: Message):
+    if message.reply_to_message.sticker:
         pp = await eor(message, text="Mencoba menghapus dari paket..")
         try:
-            decoded = FileId.decode(ctx.reply_to_message.sticker.file_id)
+            decoded = FileId.decode(message.reply_to_message.sticker.file_id)
             sticker = InputDocument(
                 id=decoded.media_id,
                 access_hash=decoded.access_hash,
@@ -88,8 +88,8 @@ async def getstickerid(self: Client, ctx: Message):
 
 
 @app.on_message(filters.command(["curi", "kang"]))
-async def kang_sticker(self: Client, ctx: Message):
-    if not ctx.from_user:
+async def kang_sticker(self: Client, message: Message):
+    if not message.from_user:
         return await eor(message, text="Anda adalah admin anon, stiker kang ada di pm saya.")
     prog_msg = await eor(message, text="Mencoba mencuri stiker Anda...")
     sticker_emoji = "🤔"
@@ -99,8 +99,8 @@ async def kang_sticker(self: Client, ctx: Message):
     animated = False
     videos = False
     convert = False
-    reply = ctx.reply_to_message
-    user = await self.resolve_peer(ctx.from_user.username or ctx.from_user.id)
+    reply = message.reply_to_message
+    user = await self.resolve_peer(message.from_user.username or message.from_user.id)
 
     if reply and reply.media:
         if reply.photo:
@@ -140,26 +140,26 @@ async def kang_sticker(self: Client, ctx: Message):
             return await prog_msg.edit_msg()
 
         pack_prefix = "anim" if animated else "vid" if videos else "a"
-        packname = f"{pack_prefix}_{ctx.from_user.id}_by_{self.me.username}"
+        packname = f"{pack_prefix}_{message.from_user.id}_by_{self.me.username}"
 
-        if len(ctx.command) > 1 and ctx.command[1].isdigit() and int(ctx.command[1]) > 0:
+        if len(message.command) > 1 and message.command[1].isdigit() and int(message.command[1]) > 0:
             # provide pack number to kang in desired pack
-            packnum = ctx.command.pop(1)
-            packname = f"{pack_prefix}{packnum}_{ctx.from_user.id}_by_{self.me.username}"
-        if len(ctx.command) > 1:
+            packnum = message.command.pop(1)
+            packname = f"{pack_prefix}{packnum}_{message.from_user.id}_by_{self.me.username}"
+        if len(message.command) > 1:
             # matches all valid emojis in input
-            sticker_emoji = "".join(set(EMOJI_PATTERN.findall("".join(ctx.command[1:])))) or sticker_emoji
-        filename = await self.download_media(ctx.reply_to_message)
+            sticker_emoji = "".join(set(EMOJI_PATTERN.findall("".join(message.command[1:])))) or sticker_emoji
+        filename = await self.download_media(message.reply_to_message)
         if not filename:
             # Failed to download
             await prog_msg.delete()
             return
-    elif ctx.entities and len(ctx.entities) > 1:
+    elif message.entities and len(message.entities) > 1:
         pack_prefix = "a"
         filename = "sticker.png"
-        packname = f"c{ctx.from_user.id}_by_{self.me.username}"
+        packname = f"c{message.from_user.id}_by_{self.me.username}"
         img_url = next(
-            (ctx.text[y.offset : (y.offset + y.length)] for y in ctx.entities if y.type == "url"),
+            (message.text[y.offset : (y.offset + y.length)] for y in message.entities if y.type == "url"),
             None,
         )
 
@@ -173,13 +173,13 @@ async def kang_sticker(self: Client, ctx: Message):
                     f.write(r.read())
         except Exception as r_e:
             return await prog_msg.edit_msg(f"{r_e.__class__.__name__} : {r_e}")
-        if len(ctx.command) > 2:
+        if len(message.command) > 2:
             # m.command[1] is image_url
-            if ctx.command[2].isdigit() and int(ctx.command[2]) > 0:
-                packnum = ctx.command.pop(2)
-                packname = f"a{packnum}_{ctx.from_user.id}_by_{self.me.username}"
-            if len(ctx.command) > 2:
-                sticker_emoji = "".join(set(EMOJI_PATTERN.findall("".join(ctx.command[2:])))) or sticker_emoji
+            if message.command[2].isdigit() and int(message.command[2]) > 0:
+                packnum = message.command.pop(2)
+                packname = f"a{packnum}_{message.from_user.id}_by_{self.me.username}"
+            if len(message.command) > 2:
+                sticker_emoji = "".join(set(EMOJI_PATTERN.findall("".join(message.command[2:])))) or sticker_emoji
             resize = True
     else:
         return await prog_msg.edit_msg("Ingin saya menebak stikernya? Harap tandai stiker.")
@@ -201,7 +201,7 @@ async def kang_sticker(self: Client, ctx: Message):
                 )
                 if stickerset.set.count >= max_stickers:
                     packnum += 1
-                    packname = f"{pack_prefix}_{packnum}_{ctx.from_user.id}_by_{self.me.username}"
+                    packname = f"{pack_prefix}_{packnum}_{message.from_user.id}_by_{self.me.username}"
                 else:
                     packname_found = True
             except StickersetInvalid:
@@ -215,7 +215,7 @@ async def kang_sticker(self: Client, ctx: Message):
                     mime_type=self.guess_mime_type(filename),
                     attributes=[DocumentAttributeFilename(file_name=filename)],
                 ),
-                message=f"#Sticker kang by UserID -> {ctx.from_user.id}",
+                message=f"#Sticker kang by UserID -> {message.from_user.id}",
                 random_id=self.rnd_id(),
             ),
         )
@@ -238,7 +238,7 @@ async def kang_sticker(self: Client, ctx: Message):
             )
         else:
             await prog_msg.edit_msg("<b>Membuat paket stiker baru...</b>")
-            stkr_title = f"{ctx.from_user.first_name}'s"
+            stkr_title = f"{message.from_user.first_name}'s"
             if animated:
                 stkr_title += "AnimPack"
             elif videos:
