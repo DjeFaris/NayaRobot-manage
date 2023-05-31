@@ -45,7 +45,7 @@ from Naya.utils.filter_groups import welcome_captcha_group
 from Naya.utils.functions import extract_text_and_keyb, generate_captcha
 
 __MODULE__ = "Greetings"
-__HELP__ = """
+__HELP__ = 
 /captcha [ENABLE|DISABLE] - Enable/Disable captcha.
 
 /set_welcome - Reply this to a message containing correct
@@ -74,7 +74,7 @@ containing rules of your groups whenever a user
 sends /rules, he'll get the message
 
 Checkout /markdownhelp to know more about formattings and other syntax.
-"""
+
 
 answers_dicc = []
 loop = asyncio.get_running_loop()
@@ -206,9 +206,9 @@ async def callback_query_welcome_button(_, callback_query):
 
 
 async def kick_restricted_after_delay(delay, button_message: Message, user: User):
-    """If the new member is still restricted after the delay, delete
+    If the new member is still restricted after the delay, delete
     button message and join message and then kick him
-    """
+
     global answers_dicc
     await asyncio.sleep(delay)
     join_message = button_message.reply_to_message
