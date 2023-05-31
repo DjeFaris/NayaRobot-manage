@@ -597,7 +597,7 @@ async def adadino(client: Client, message: Message):
     await typew.edit("`-TAMAT-`")
 
 
-@app.on_message(filters.command(["syng", "syg"], PREFIX) & filters.me)
+@app.on_message(filters.command(["syng", "syg"]))
 async def zeyenk(client: Client, message: Message):
     e = await eor(message, text="I LOVEE YOUUU 💕")
     await e.edit("💝💘💓💗")
@@ -828,7 +828,7 @@ async def menggabut(client: Client, message: Message):
     await e.edit("`GABUT`")
 
 
-@app.on_message(filters.command(["helikopter", "heli"], PREFIX) & filters.me)
+@app.on_message(filters.command(["helikopter", "heli"]))
 async def helikopter(client: Client, message: Message):
     await eor(message, text=
         "▬▬▬.◙.▬▬▬ \n"
