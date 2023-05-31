@@ -8,11 +8,11 @@ from Naya import *
 
 
 @app.on_message(filters.command("asupan"))
-async def _(client, message):
+async def _(_, message):
     y = await eor(message, text="<b>🔍 Mencari Video Asupan...</b>")
     try:
         asupannya = []
-        async for asupan in client.search_messages(
+        async for asupan in app2.search_messages(
             "@AsupanNyaSaiki", filter=MessagesFilter.VIDEO
         ):
             asupannya.append(asupan)
@@ -28,11 +28,11 @@ async def _(client, message):
 
 
 @app.on_message(filters.command("cewe"))
-async def _(client, message):
+async def _(_, message):
     y = await eor(message, text="<b>🔍 Mencari Ayang...</b>")
     try:
         ayangnya = []
-        async for ayang in client.search_messages(
+        async for ayang in app2.search_messages(
             "@AyangSaiki", filter=MessagesFilter.PHOTO
         ):
             ayangnya.append(ayang)
@@ -48,11 +48,11 @@ async def _(client, message):
 
 
 @app.on_message(filters.command("cowo"))
-async def _(client, message):
+async def _(_, message):
     y = await eor(message, text="<b>🔍 Mencari Ayang...</b>")
     try:
         ayang2nya = []
-        async for ayang2 in client.search_messages(
+        async for ayang2 in app2.search_messages(
             "@Ayang2Saiki", filter=MessagesFilter.PHOTO
         ):
             ayang2nya.append(ayang2)
@@ -68,13 +68,13 @@ async def _(client, message):
 
 
 @app.on_message(filters.command("anime"))
-async def anim(client, message):
+async def anim(_, message):
     iis = await eor(message, text="🔎 <code>Search Anime...</code>")
     await message.reply_photo(
         choice(
             [
                 jir.photo.file_id
-                async for jir in client.search_messages(
+                async for jir in app2.search_messages(
                     "@animehikarixa", filter=enums.MessagesFilter.PHOTO
                 )
             ]
@@ -87,13 +87,13 @@ async def anim(client, message):
 
 
 @app.on_message(filters.command("anime2"))
-async def nimek(client, message):
+async def nimek(_, message):
     erna = await eor(message, text="🔎 <code>Search Anime...</code>")
     await message.reply_photo(
         choice(
             [
                 tai.photo.file_id
-                async for tai in client.search_messages(
+                async for tai in app2.search_messages(
                     "@Anime_WallpapersHD", filter=enums.MessagesFilter.PHOTO
                 )
             ]
@@ -104,15 +104,51 @@ async def nimek(client, message):
 
     await erna.delete()
 
+@app.on_message(filters.command("ppcp"))
+async def ppk(_, message):
+    iis = await eor(message, text="🔎 <code>Search Ppcp...</code>")
+    await message.reply_photo(
+        choice(
+            [
+                jir.photo.file_id
+                async for jir in app2.search_messages(
+                    "@mentahanppcp", filter=enums.MessagesFilter.PHOTO
+                )
+            ]
+        ),
+        False,
+        caption=f"**Upload by {app.me.mention}**",
+    )
+
+    await iis.delete()
+
+
+@app.on_message(filters.command("ppcp2"))
+async def ppk(_, message):
+    erna = await eor(message, text="🔎 <code>Search Ppcp...</code>")
+    await message.reply_photo(
+        choice(
+            [
+                tai.photo.file_id
+                async for tai in app2.search_messages(
+                    "@ppcpcilik", filter=enums.MessagesFilter.PHOTO
+                )
+            ]
+        ),
+        False,
+        caption=f"**Upload by {app.me.mention}**",
+    )
+
+    await erna.delete()
 
 @app.on_message(filters.command("pap"))
-async def bugil(client, message):
+async def bugil(_, message):
     kazu = await eor(message, text="🔎 <code>Nih PAP Nya...</code>")
     await message.reply_photo(
         choice(
             [
                 lol.photo.file_id
-                async for lol in client.search_messages(
+                async for lol in app2.search_messages(
                     "@mm_kyran", filter=enums.MessagesFilter.PHOTO
                 )
             ]
