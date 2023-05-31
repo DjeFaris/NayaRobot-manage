@@ -92,7 +92,7 @@ async def welcome(_, chat: Chat, message: Message):
 
             if member.is_bot:
                 continue
-            await send_welcome_message(chat, member, True)
+            await send_welcome_message(chat, f"**Hai {member.mention}, Selamat datang digrup {member.chat.title}**", True)
         except Exception as e:
             await message.reply(f"{e}")
 
