@@ -268,14 +268,13 @@ async def kang_sticker(self: Client, ctx: Message):
             except PeerIdInvalid:
                 return await prog_msg.edit_msg("Tampaknya Anda belum pernah berinteraksi dengan saya dalam obrolan pribadi, Anda harus melakukannya dulu.."),
                 reply_markup=InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(text="Klik Saya"),
-                                    url=f"https://t.me/{self.me.username}?start",
-                                )
-                            ]
-                        ]
-                    ),
+                    [
+                      [
+                        InlineKeyboardButton(
+                          tex="Klik Saya",
+                          url=f"https://t.me/{self.me.username}?start")
+                      ],
+                    ],
                 )
 
     except BadRequest:
@@ -287,10 +286,9 @@ async def kang_sticker(self: Client, ctx: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text="👀 Lihat Paket"),
-                        url=f"https://t.me/addstickers/{packname}",
-                    )
-                ]
+                        text="👀 Lihat Paket",
+                        url=f"https://t.me/addstickers/{packname}"),
+                ],
             ]
         )
         await prog_msg.edit_msg("<b>Stiker berhasil dicuri!</b>\n<b>Emoji:</b> {sticker_emoji}"),
