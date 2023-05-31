@@ -172,5 +172,9 @@ __HELP__ = f"""
            
 /anime2 - Untuk mengirim photo anime random.
 
+/ppcp - Untuk mengirim photo ppcp random.
+           
+/ppcp2 - Untuk mengirim photo ppcp random.
+
 /pap - Untuk mengirim photo pap random.
 """
