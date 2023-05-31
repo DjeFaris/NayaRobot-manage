@@ -42,9 +42,10 @@ async def convert_image(_, message):
                 )
             else:
                 get_photo.append(InputMediaPhoto(i.photo.file_id))
-        await app.send_media_group(
-            photo=get_photo,
+                photo = get_photo
+        await photo.copy(
             caption=f"<b>Maker by :{app.me.mention}</b>",
+            quote=True
         )
         user_info = await app2.resolve_peer(bot)
         return await app2.invoke(DeleteHistory(peer=user_info, max_id=0, revoke=True))
