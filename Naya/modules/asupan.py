@@ -20,7 +20,7 @@ async def _(client, message):
                     [
                       InputMediaVideo(
                         ajg,
-                        caption=f"<b>Asupan By {app.me.mention}</b>", quote=True,
+                        caption=f"<b>Asupan By {app.me.mention}</b>",
                       )
                     ],
                 )
