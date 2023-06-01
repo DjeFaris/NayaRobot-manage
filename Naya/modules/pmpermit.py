@@ -51,7 +51,7 @@ async def pmpermit_func(_, message):
 
 
 @app2.on_message(
-    filters.command("approve", prefixes=USERBOT_PREFIX) & SUDOERS & ~filters.via_bot
+    filters.command("ok", prefixes=USERBOT_PREFIX) & SUDOERS & ~filters.via_bot
 )
 @capture_err
 async def pm_approve(_, message):
@@ -65,7 +65,7 @@ async def pm_approve(_, message):
 
 
 @app2.on_message(
-    filters.command("disapprove", prefixes=USERBOT_PREFIX) & SUDOERS & ~filters.via_bot
+    filters.command("no", prefixes=USERBOT_PREFIX) & SUDOERS & ~filters.via_bot
 )
 async def pm_disapprove(_, message):
     if not message.reply_to_message:
