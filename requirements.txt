@@ -29,6 +29,7 @@ pytz
 python-dotenv
 openai
 psutil
+httpx
 httpx[http2]
 cachetools
 pyrate-limiter
@@ -38,3 +39,4 @@ py-trans
 pymediainfo
 wget
 youtube-search-python
+yt-dlp
