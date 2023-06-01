@@ -7,8 +7,9 @@ import math
 import os
 
 from PIL import Image
-from pyrogram import Client, raw
-from pyrogram.file_id import FileId
+from pyrogram import *
+from pyrogram.file_id import *
+from pyrogram.types import *
 
 STICKER_DIMENSIONS = (512, 512)
 
@@ -72,3 +73,15 @@ async def get_document_from_file_id(
         access_hash=decoded.access_hash,
         file_reference=decoded.file_reference,
     )
+
+
+def ReplyCheck(message: Message):
+    reply_id = None
+
+    if message.reply_to_message:
+        reply_id = message.reply_to_message.id
+
+    elif not message.from_user.is_self:
+        reply_id = message.id
+
+    return reply_id
