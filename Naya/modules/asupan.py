@@ -17,11 +17,12 @@ async def _(_, message):
         ):
             asupannya.append(asupan)
         video = random.choice(asupannya)
-        await message.reply_video(
-            video,
-            caption=f"<b>Asupan By {app.me.mention}</b>",
-        )
-        await y.delete()
+        if video:
+            await message.reply_video(
+                video,
+                caption=f"<b>Asupan By {app.me.mention}</b>",
+            )
+            await y.delete()
     except Exception:
         await y.edit("<b>Video tidak ditemukan silahkan ulangi beberapa saat lagi</b>")
 
