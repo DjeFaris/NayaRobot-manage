@@ -15,14 +15,14 @@ async def _(_, message):
         async for asupan in app2.search_messages(
             "AsupanNyaSaiki", filter=MessagesFilter.VIDEO
         ):
+        if asupan.video:
             asupannya.append(asupan)
         video = random.choice(asupannya)
-        if video:
-            await app.send_video(
+        await app.send_video(
                 video,
                 caption=f"<b>Asupan By {app.me.mention}</b>",
-            )
-            await y.delete()
+        )
+        await y.delete()
     except Exception:
         await y.edit("<b>Video tidak ditemukan silahkan ulangi beberapa saat lagi</b>")
 
@@ -33,11 +33,12 @@ async def _(_, message):
     try:
         ayangnya = []
         async for ayang in app2.search_messages(
-            "AyangSaiki", filter=MessagesFilter.PHOTO
+            "AyangSaiki", filter=enums.MessagesFilter.PHOTO
         ):
+        if ayang.photo:
             ayangnya.append(ayang)
         photo = random.choice(ayangnya)
-        await app.send_photo(
+        await message.reply_photo(
             photo,
             caption=f"<b>Ayang By {app.me.mention}",
         )
