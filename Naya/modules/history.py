@@ -34,7 +34,7 @@ async def cek_mataa(self: Client, ctx: Message):
     usernamebefore, first_name, lastname_before = await get_userdata(ctx.from_user.id)
     msg = ""
     if usernamebefore != ctx.from_user.username or first_name != ctx.from_user.first_name or lastname_before != ctx.from_user.last_name:
-        msg += f"👀 <b>Naya Sangmata</b>\n\n User: {ctx.from_user.mention} [<code>{ctx.from_user.id}</code>]\n"
+        msg += f"👀 <b>Rito Sangmata</b>\n\n User: {ctx.from_user.mention} [<code>{ctx.from_user.id}</code>]\n"
     if usernamebefore != ctx.from_user.username:
         usernamebefore = f"@{usernamebefore}" if usernamebefore else "<code>Tanpa Username</code>"
         usernameafter = f"@{ctx.from_user.username}" if ctx.from_user.username else "<code>Tanpa Username</code>"
