@@ -16,10 +16,9 @@ async def _(client, message):
                 asupan.append(asu)
                 video = random.choice(asupan)
                 ajg = await app2.download_media(video)
-                await client.send_media_group(
-                    message.chat.id,
-                    media=ajg,
-#                    caption=f"<b>Asupan By {app.me.mention}</b>",
+                await message.reply_video(
+                    video=ajg,
+                    caption=f"<b>Asupan By {app.me.mention}</b>",
                 )
                 await y.delete()
     except Exception as e:
