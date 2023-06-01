@@ -37,7 +37,7 @@ async def _(_, message):
             if ayang.photo:
                 ayangnya.append(ayang)
             aa = random.choice(ayangnya)
-            bb = await bb.dowload()
+            bb = await aa.dowload()
             await message.reply_photo(
                 photo=bb,
                 caption=f"<b>Ayang By {app.me.mention}",
