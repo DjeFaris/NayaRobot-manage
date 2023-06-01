@@ -54,7 +54,7 @@ async def start_bot():
             bot_modules += "|{:<15}".format(i)
         j += 1
     print("+===============================================================+")
-    print("|                              NAYA ROBOT                              |")
+    print("|                              RITO ROBOT                              |")
     print("+===============+===============+===============+===============+")
     print(bot_modules)
     print("+===============+===============+===============+===============+")
@@ -90,8 +90,8 @@ home_keyboard_pm = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(text="Perintah ❓", callback_data="bot_commands"),
             InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/naya1503/NayaRobot",
+                text="Jasa BOT",
+                url="https://t.me/jasa_kirito",
             ),
         ],
         [
@@ -99,7 +99,7 @@ home_keyboard_pm = InlineKeyboardMarkup(
                 text="Stats 🖥",
                 callback_data="stats_callback",
             ),
-            InlineKeyboardButton(text="Support 👨", url="http://t.me/kynansupport"),
+            InlineKeyboardButton(text="Support 👨", url="http://t.me/ritolog"),
         ],
         [
             InlineKeyboardButton(
@@ -123,8 +123,8 @@ keyboard = InlineKeyboardMarkup(
                 url=f"t.me/{BOT_USERNAME}?start=help",
             ),
             InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/naya1503/NayaRobot",
+                text="Jasa BOT",
+                url="https://t.me/jasa_kirito",
             ),
         ],
         [
@@ -132,7 +132,7 @@ keyboard = InlineKeyboardMarkup(
                 text="Stats 💻",
                 callback_data="stats_callback",
             ),
-            InlineKeyboardButton(text="Support 👨", url="t.me/kynansupport"),
+            InlineKeyboardButton(text="Support 👨", url="t.me/ritolog"),
         ],
     ]
 )
@@ -221,7 +221,7 @@ async def help_parser(name, keyboard=None):
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     return (
         """Hello {first_name}, Saya adalah {bot_name}.
-Saya adalah Bot Musik Dan Juga Dapat Membantu Kamu Untuk Mengelola Grup . Jika ada pertanyaan silakan kamu datang ke @KynanSupport.
+Saya adalah Bot Musik Dan Juga Dapat Membantu Kamu Untuk Mengelola Grup . Jika ada pertanyaan silakan kamu datang ke @ritolog.
 """.format(
             first_name=name,
             bot_name=BOT_NAME,
@@ -258,7 +258,7 @@ async def help_button(client, query):
     create_match = re.match(r"help_create", query.data)
     top_text = f"""
 Hello {query.from_user.first_name}, Saya adalah {BOT_NAME}.
-Saya adalah Bot Musik Dan Juga Dapat Membantu Kamu Untuk Mengelola Grup . Jika ada pertanyaan silakan kamu datang ke @KynanSupport.
+Saya adalah Bot Musik Dan Juga Dapat Membantu Kamu Untuk Mengelola Grup . Jika ada pertanyaan silakan kamu datang ke @ritolog.
  """
     if mod_match:
         module = mod_match[1].replace(" ", "_")
