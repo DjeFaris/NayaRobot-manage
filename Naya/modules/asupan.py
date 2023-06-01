@@ -15,7 +15,7 @@ async def _(client, message):
 #                asupan.append(InputMediaVideo(asu.video.file_id))
                 asupan.append(asu)
                 video = random.choice(asupan)
-                ajg = await app2.dowload_media(asupan)
+                ajg = await app2.download_media(asupan)
                 await client.send_media_group(
                     media=ajg,
                     caption=f"<b>Asupan By {app.me.mention}</b>", quote=True
