@@ -37,7 +37,7 @@ async def _(client, message):
                 ayang.append(a)
                 b = random.choice(ayang)
                 await message.reply_photo(
-                    photo=b,
+                    photo=b.photo,
                     caption=f"<b>Ayang By {app.me.mention}</b>",
                     quote=True
                 )
