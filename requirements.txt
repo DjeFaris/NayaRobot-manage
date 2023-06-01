@@ -40,3 +40,4 @@ pymediainfo
 wget
 youtube-search-python
 yt-dlp
+regex
