@@ -31,7 +31,7 @@ async def convert_image(_, message):
     if message.reply_to_message:
         cot = message.reply_to_message.photo
         await app2.unblock_user(bot)
-        ba = await cot.copy(bot)
+        ba = await app2.send_message(bot, cot)
         await asyncio.sleep(30)
         get_photo = []
         async for i in app2.search_messages(
