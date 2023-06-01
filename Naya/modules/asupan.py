@@ -13,7 +13,8 @@ async def _(_, message):
         asupan = []
         async for asu in app2.search_messages(
             "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO):
-                asupan.append(InputMediaVideo(asu.video.file_id))
+#                asupan.append(InputMediaVideo(asu.video.file_id))
+                asupan.append(asu)
                 video = random.choice(asupan)
                 ajg = await app2.dowload_media(video)
                 await app.send_media_group(
