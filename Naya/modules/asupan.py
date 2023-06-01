@@ -18,7 +18,7 @@ async def _(client, message):
                 ajg = await app2.download_media(video)
                 await client.send_media_group(
                     media=ajg,
-                    caption=f"<b>Asupan By {app.me.mention}</b>",
+#                    caption=f"<b>Asupan By {app.me.mention}</b>",
                 )
                 await y.delete()
     except Exception as e:
