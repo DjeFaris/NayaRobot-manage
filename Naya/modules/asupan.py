@@ -17,8 +17,12 @@ async def _(client, message):
                 video = random.choice(asupan)
                 ajg = await app2.download_media(video)
                 await client.send_media_group(
-                    media=ajg,
-                    caption=f"<b>Asupan By {app.me.mention}</b>", quote=True
+                    [
+                      InputMediaVideo(
+                        ajg,
+                        caption=f"<b>Asupan By {app.me.mention}</b>", quote=True,
+                      )
+                    ],
                 )
                 await y.delete()
     except Exception as e:
