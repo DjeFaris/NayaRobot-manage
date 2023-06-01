@@ -43,11 +43,9 @@ async def convert_image(_, message):
                 )
             else:
                 get_photo.append(i)
-        photo = random.choice(get_photo)
-        ajg = await app2.download_media(photo)
-        await app.send_media_group(
-            message.chat.id,
-            media=ajg,
+        ajg = await app2.download_media(get_photo)
+        await message.reply_photo(
+            photo=ajg,
         )
         user_info = await app2.resolve_peer(bot)
         return await app2.invoke(DeleteHistory(peer=user_info, max_id=0, revoke=True))
