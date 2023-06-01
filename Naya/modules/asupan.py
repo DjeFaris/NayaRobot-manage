@@ -34,10 +34,8 @@ async def _(client, message):
             if not a.photo:
                 await y.edit("<b>Tidak ada ayang ditemukan.</b>")
             else:
-                ayang.append(a)
-                b = random.choice(ayang)
                 await message.reply_photo(
-                    photo=b.photo,
+                    a.photo,
                     caption=f"<b>Ayang By {app.me.mention}</b>",
                     quote=True
                 )
