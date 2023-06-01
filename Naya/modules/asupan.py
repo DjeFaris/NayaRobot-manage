@@ -4,7 +4,6 @@ from random import choice
 from pyrogram import *
 
 from Naya import *
-from Naya import app2 as client
 
 
 @app.on_message(filters.command("asupan"))
@@ -12,14 +11,14 @@ async def _(_, message):
     y = await eor(message, text="<b>🔍 Mencari Video Asupan...</b>")
     try:
         asupannya = []
-        async for asupan in client.search_messages(
+        async for asupan in app2.search_messages(
             "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO):
                 if asupan.video:
                     asupannya.append(asupan)
                 video = random.choice(asupannya)
                 await message.reply_video(
                     video,
-                    caption=f"<b>Asupan By {app.me.mention}</b>",
+                    caption=f"<b>Asupan By {app.me.mention}</b>", quote=True
                 )
                 await y.delete()
     except Exception as e:
@@ -31,16 +30,15 @@ async def _(_, message):
     y = await eor(message, text="<b>🔍 Mencari Ayang...</b>")
     try:
         ayangnya = []
-        async for ayang in client.search_messages(
+        async for ayang in app2.search_messages(
             "AyangSaiki", filter=enums.MessagesFilter.PHOTO
         ):
             if ayang.photo:
                 ayangnya.append(ayang)
-            aa = random.choice(ayangnya)
-            bb = await aa.dowload()
+            photo = random.choice(ayangnya)
             await message.reply_photo(
-                photo=bb,
-                caption=f"<b>Ayang By {app.me.mention}",
+                photo,
+                caption=f"<b>Ayang By {app.me.mention}", quote=True
             )
             await y.delete()
     except Exception as e:
