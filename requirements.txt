@@ -37,3 +37,4 @@ py-extract
 py-trans
 pymediainfo
 wget
+youtube-search-python
