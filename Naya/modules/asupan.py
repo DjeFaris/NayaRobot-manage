@@ -4,7 +4,7 @@ from random import choice
 from pyrogram import *
 
 from Naya import *
-
+from Naya import app2 as client
 
 @app.on_message(filters.command("asupan"))
 async def _(_, message):
@@ -26,23 +26,29 @@ async def _(_, message):
 
 
 @app.on_message(filters.command("cewe"))
-async def _(_, message):
-    y = await eor(message, text="<b>🔍 Mencari Ayang...</b>")
+async def _(client, message):
     try:
+        y = await message.reply_text("<b>🔍 Mencari Ayang...</b>")
+
         ayangnya = []
-        async for ayang in app2.search_messages(
-            "AyangSaiki", filter=enums.MessagesFilter.PHOTO
-        ):
+        async for ayang in app2.search_messages("AyangSaiki", filter=enums.MessagesFilter.PHOTO):
             if ayang.photo:
                 ayangnya.append(ayang)
+
+        if ayangnya:
             photo = random.choice(ayangnya)
             await message.reply_photo(
-                photo,
-                caption=f"<b>Ayang By {app.me.mention}", quote=True
+                photo.photo.file_id,
+                caption=f"<b>Ayang By {app.me.mention}</b>",
+                quote=True
             )
             await y.delete()
+        else:
+            await y.edit("<b>Tidak ada ayang ditemukan.</b>")
+
     except Exception as e:
-        await y.edit(f"**Error `{e}`**")
+        await y.edit(f"<b>Error: {e}</b>")
+
 
 
 @app.on_message(filters.command("cowo"))
