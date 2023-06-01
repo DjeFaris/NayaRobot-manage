@@ -19,7 +19,7 @@ async def _(client, message):
                 await client.send_media_group(
                     [
                       InputMediaVideo(
-                        ajg,
+                        media=ajg,
                         caption=f"<b>Asupan By {app.me.mention}</b>",
                       )
                     ],
