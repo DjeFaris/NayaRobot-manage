@@ -37,17 +37,23 @@ async def _(client, message):
 
         if ayangnya:
             photo = random.choice(ayangnya)
-            await message.reply_photo(
-                photo.photo.file_id,
-                caption=f"<b>Ayang By {app.me.mention}</b>",
-                quote=True
-            )
-            await y.delete()
+
+            # Check if the photo file exists and is accessible
+            if photo.photo and photo.photo.file_size:
+                await message.reply_photo(
+                    photo.photo.file_id,
+                    caption=f"<b>Ayang By {app.me.mention}</b>",
+                    quote=True
+                )
+                await y.delete()
+            else:
+                await y.edit("<b>Invalid photo file.</b>")
         else:
             await y.edit("<b>Tidak ada ayang ditemukan.</b>")
 
     except Exception as e:
         await y.edit(f"<b>Error: {e}</b>")
+
 
 
 
