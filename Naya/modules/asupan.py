@@ -4,6 +4,7 @@ from random import choice
 from pyrogram import *
 
 from Naya import *
+from Naya import app2 as client
 
 
 @app.on_message(filters.command("asupan"))
@@ -11,7 +12,7 @@ async def _(_, message):
     y = await eor(message, text="<b>🔍 Mencari Video Asupan...</b>")
     try:
         asupannya = []
-        async for asupan in app2.search_messages(
+        async for asupan in client.search_messages(
             "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO):
                 if asupan.video:
                     asupannya.append(asupan)
@@ -21,8 +22,8 @@ async def _(_, message):
                     caption=f"<b>Asupan By {app.me.mention}</b>",
                 )
                 await y.delete()
-    except Exception:
-        await y.edit("<b>Video tidak ditemukan silahkan ulangi beberapa saat lagi</b>")
+    except Exception as e:
+        await y.edit(f"**Error `{e}`**")
 
 
 @app.on_message(filters.command("cewe"))
@@ -30,7 +31,7 @@ async def _(_, message):
     y = await eor(message, text="<b>🔍 Mencari Ayang...</b>")
     try:
         ayangnya = []
-        async for ayang in app2.search_messages(
+        async for ayang in client.search_messages(
             "AyangSaiki", filter=enums.MessagesFilter.PHOTO
         ):
             if ayang.photo:
@@ -41,8 +42,8 @@ async def _(_, message):
                 caption=f"<b>Ayang By {app.me.mention}",
             )
             await y.delete()
-    except Exception:
-        await y.edit("<b>Ayang tidak ditemukan silahkan ulangi beberapa saat lagi</b>")
+    except Exception as e:
+        await y.edit(f"**Error `{e}`**")
 
 
 @app.on_message(filters.command("cowo"))
