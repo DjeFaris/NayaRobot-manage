@@ -1,8 +1,7 @@
 import random
 from random import choice
 
-from pyrogram import enums, filters
-from pyrogram.enums import MessagesFilter
+from pyrogram import *
 
 from Naya import *
 
@@ -13,7 +12,7 @@ async def _(_, message):
     try:
         asupannya = []
         async for asupan in app2.search_messages(
-            "AsupanNyaSaiki", filter=MessagesFilter.VIDEO
+            "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO
         ):
         if asupan.video:
             asupannya.append(asupan)
@@ -53,7 +52,7 @@ async def _(_, message):
     try:
         ayang2nya = []
         async for ayang2 in app2.search_messages(
-            "Ayang2Saiki", filter=MessagesFilter.PHOTO
+            "Ayang2Saiki", filter=enums.MessagesFilter.PHOTO
         ):
             ayang2nya.append(ayang2)
         photo = random.choice(ayang2nya)
