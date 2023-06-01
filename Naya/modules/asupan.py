@@ -4,20 +4,19 @@ from random import choice
 from pyrogram import *
 from pyrogram.types import *
 from Naya import *
-from Naya import app2 as client
 
 @app.on_message(filters.command("asupan"))
 async def _(client, message):
     y = await eor(message, text="<b>🔍 Mencari Video Asupan...</b>")
     try:
         asupan = []
-        async for asu in client.search_messages(
+        async for asu in app2.search_messages(
             "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO):
 #                asupan.append(InputMediaVideo(asu.video.file_id))
                 asupan.append(asu)
                 video = random.choice(asupan)
-                ajg = await client.dowload_media(asupan)
-                await app.send_media_group(
+                ajg = await app2.dowload_media(asupan)
+                await client.send_media_group(
                     media=ajg,
                     caption=f"<b>Asupan By {app.me.mention}</b>", quote=True
                 )
