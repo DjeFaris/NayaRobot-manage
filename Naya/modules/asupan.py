@@ -29,28 +29,19 @@ async def _(_, message):
 async def _(client, message):
     try:
         y = await message.reply_text("<b>🔍 Mencari Ayang...</b>")
-
-        ayangnya = []
-        async for ayang in app2.search_messages("AyangSaiki", filter=enums.MessagesFilter.PHOTO):
-            if ayang.photo:
-                ayangnya.append(ayang)
-
-        if ayangnya:
-            photo = random.choice(ayangnya)
-
-            # Check if the photo file exists and is accessible
-            if photo.photo and photo.photo.file_size:
+        ayang = []
+        async for a in app2.search_messages("AyangSaiki", filter=enums.MessagesFilter.PHOTO):
+            if not a.photo:
+                await y.edit("<b>Tidak ada ayang ditemukan.</b>")
+            else:
+                ayang.append(a)
+                b = random.choice(ayang)
                 await message.reply_photo(
-                    photo.photo.file_id,
+                    photo=b,
                     caption=f"<b>Ayang By {app.me.mention}</b>",
                     quote=True
                 )
                 await y.delete()
-            else:
-                await y.edit("<b>Invalid photo file.</b>")
-        else:
-            await y.edit("<b>Tidak ada ayang ditemukan.</b>")
-
     except Exception as e:
         await y.edit(f"<b>Error: {e}</b>")
 
