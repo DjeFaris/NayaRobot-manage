@@ -60,6 +60,7 @@ async def _(_, message):
                 await message.reply_photo(
                     photo=ajg,
                     caption=f"**Cowo By {app.me.mention}</b>",
+                )
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -79,6 +80,7 @@ async def _(_, message):
                 await message.reply_photo(
                     photo=ajg,
                     caption=f"<b>Anime By {app.me.mention}</b>",
+                )
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -97,6 +99,7 @@ async def _(_, message):
                 await message.reply_photo(
                     photo=ajg,
                     caption=f"<b>Anime By {app.me.mention}</b>",
+                )
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -115,6 +118,7 @@ async def _(_, message):
                 await message.reply_photo(
                     photo=ajg,
                     caption=f"<b>PP Couple By {app.me.mention}</b>",
+                )
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -133,6 +137,7 @@ async def _(_, message):
                 await message.reply_photo(
                     photo=ajg,
                     caption=f"<b>PP Couple By {app.me.mention}</b>",
+                )
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -151,6 +156,7 @@ async def _(_, message):
                 await message.reply_photo(
                     photo=ajg,
                     caption=f"<b>Untuk Kamu Dari {app.me.mention}</b>",
+                )
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
