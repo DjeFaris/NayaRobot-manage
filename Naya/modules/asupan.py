@@ -5,14 +5,15 @@ from pyrogram import *
 from pyrogram.types import *
 from Naya import *
 
+
+
 @app.on_message(filters.command("asupan"))
 async def _(client, message):
     y = await eor(message, text="<b>🔍 Mencari Video Asupan...</b>")
     try:
         asupan = []
         async for asu in app2.search_messages(
-            "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO):
-#                asupan.append(InputMediaVideo(asu.video.file_id))
+            "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO, limit=1):
                 asupan.append(asu)
                 video = random.choice(asupan)
                 ajg = await app2.download_media(video)
@@ -25,138 +26,140 @@ async def _(client, message):
         await y.edit(f"**Error `{e}`**")
 
 
+
 @app.on_message(filters.command("cewe"))
 async def _(client, message):
+    y = await eor(message, text="<b>🔍 Mencari Cewe...</b>")
     try:
-        y = await message.reply_text("<b>🔍 Mencari Ayang...</b>")
-        ayang = []
-        async for a in app2.search_messages("AyangSaiki", filter=enums.MessagesFilter.PHOTO):
-            if not a.photo:
-                await y.edit("<b>Tidak ada ayang ditemukan.</b>")
-            else:
+        cewe = []
+        async for ce in app2.search_messages(
+            "AyangSaiki", filter=enums.MessagesFilter.PHOTO, limit=1):
+                cewe.append(ce)
+                poto = random.choice(cewe)
+                ajg = await app2.download_media(poto)
                 await message.reply_photo(
-                    a.photo,
-                    caption=f"<b>Ayang By {app.me.mention}</b>",
-                    quote=True
+                    photo=ajg,
+                    caption=f"<b>Cewe By {app.me.mention}</b>",
                 )
                 await y.delete()
     except Exception as e:
-        await y.edit(f"<b>Error: {e}</b>")
-
+        await y.edit(f"**Error `{e}`**")
 
 
 
 @app.on_message(filters.command("cowo"))
 async def _(_, message):
-    y = await eor(message, text="<b>🔍 Mencari Ayang...</b>")
+    y = await eor(message, text="<b>🔍 Mencari Cowo...</b>")
     try:
-        ayang2nya = []
-        async for ayang2 in app2.search_messages(
-            "Ayang2Saiki", filter=enums.MessagesFilter.PHOTO
-        ):
-            ayang2nya.append(ayang2)
-        photo = random.choice(ayang2nya)
-        await message.reply_photo(
-            photo,
-            caption=f"<b>Ayang By <a href=tg://user?id={app.me.id}>{app.me.first_name} {app.me.last_name or ''}</a></b>",
-            reply_to_message_id=message.id,
-        )
-        await y.delete()
+        cowo = []
+        async for co in app2.search_messages(
+            "Ayang2Saiki", filter=enums.MessagesFilter.PHOTO, limit=1):
+                cowo.append(co)
+                poto = random.choice(cowo)
+                ajg = await app2.download_media(poto)
+                await message.reply_photo(
+                    photo=ajg,
+                    caption=f"<b>Cowo By {app.me.mention}",
+                )
+                await y.delete()
     except Exception:
-        await y.edit("<b>Ayang tidak ditemukan silahkan ulangi beberapa saat lagi</b>")
+        await y.edit(f"**Error `{e}`**")
+
 
 
 @app.on_message(filters.command("anime"))
-async def anim(_, message):
-    iis = await eor(message, text="🔎 <code>Search Anime...</code>")
-    await message.reply_photo(
-        choice(
-            [
-                jir.photo.file_id
-                async for jir in app2.search_messages(
-                    "animehikarixa", filter=enums.MessagesFilter.PHOTO
+async def _(_, message):
+    y = await eor(message, text="<b>🔍 Mencari Anime...</b>")
+    try:
+        anime = []
+        async for an in app2.search_messages(
+            "animehikarixa", filter=enums.MessagesFilter.PHOTO, limit=1):
+                anime.append(an)
+                poto = random.choice(anime)
+                ajg = await app2.download_media(poto)
+                await message.reply_photo(
+                    photo=ajg,
+                    caption=f"<b>Anime By {app.me.mention}",
                 )
-            ]
-        ),
-        False,
-        caption=f"**Upload by {app.me.mention}**",
-    )
-
-    await iis.delete()
-
+                await y.delete()
+    except Exception:
+        await y.edit(f"**Error `{e}`**")
+  
 
 @app.on_message(filters.command("anime2"))
-async def nimek(_, message):
-    erna = await eor(message, text="🔎 <code>Search Anime...</code>")
-    await message.reply_photo(
-        choice(
-            [
-                tai.photo.file_id
-                async for tai in app2.search_messages(
-                    "Anime_WallpapersHD", filter=enums.MessagesFilter.PHOTO
+async def _(_, message):
+    y = await eor(message, text="<b>🔍 Mencari Anime...</b>")
+    try:
+        animek = []
+        async for ani in app2.search_messages(
+            "Anime_WallpapersHD", filter=enums.MessagesFilter.PHOTO, limit=1):
+                animek.append(ani)
+                poto = random.choice(animek)
+                ajg = await app2.download_media(poto)
+                await message.reply_photo(
+                    photo=ajg,
+                    caption=f"<b>Anime By {app.me.mention}",
                 )
-            ]
-        ),
-        False,
-        caption=f"**Upload by {app.me.mention}**",
-    )
+                await y.delete()
+    except Exception:
+        await y.edit(f"**Error `{e}`**")
 
-    await erna.delete()
 
 @app.on_message(filters.command("ppcp"))
-async def ppk(_, message):
-    iis = await eor(message, text="🔎 <code>Search Ppcp...</code>")
-    await message.reply_photo(
-        choice(
-            [
-                jir.photo.file_id
-                async for jir in app2.search_messages(
-                    "mentahanppcp", filter=enums.MessagesFilter.PHOTO
+async def _(_, message):
+    y = await eor(message, text="<b>🔍 Mencari Anime...</b>")
+    try:
+        ppcp = []
+        async for pp in app2.search_messages(
+            "mentahanppcp", filter=enums.MessagesFilter.PHOTO, limit=1):
+                ppcp.append(pp)
+                poto = random.choice(ppcp)
+                ajg = await app2.download_media(poto)
+                await message.reply_photo(
+                    photo=ajg,
+                    caption=f"<b>PP Couple By {app.me.mention}",
                 )
-            ]
-        ),
-        False,
-        caption=f"**Upload by {app.me.mention}**",
-    )
-
-    await iis.delete()
+                await y.delete()
+    except Exception:
+        await y.edit(f"**Error `{e}`**")
 
 
 @app.on_message(filters.command("ppcp2"))
-async def ppk(_, message):
-    erna = await eor(message, text="🔎 <code>Search Ppcp...</code>")
-    await message.reply_photo(
-        choice(
-            [
-                tai.photo.file_id
-                async for tai in app2.search_messages(
-                    "ppcpcilik", filter=enums.MessagesFilter.PHOTO
+async def _(_, message):
+    y = await eor(message, text="<b>🔍 Mencari Anime...</b>")
+    try:
+        ppcp2 = []
+        async for pe in app2.search_messages(
+            "ppcpcilik", filter=enums.MessagesFilter.PHOTO, limit=1):
+                ppcp2.append(pe)
+                poto = random.choice(ppcp2)
+                ajg = await app2.download_media(poto)
+                await message.reply_photo(
+                    photo=ajg,
+                    caption=f"<b>PP Couple By {app.me.mention}",
                 )
-            ]
-        ),
-        False,
-        caption=f"**Upload by {app.me.mention}**",
-    )
+                await y.delete()
+    except Exception:
+        await y.edit(f"**Error `{e}`**")
 
-    await erna.delete()
 
 @app.on_message(filters.command("pap"))
-async def bugil(_, message):
-    kazu = await eor(message, text="🔎 <code>Nih PAP Nya...</code>")
-    await message.reply_photo(
-        choice(
-            [
-                lol.photo.file_id
-                async for lol in app2.search_messages(
-                    "mm_kyran", filter=enums.MessagesFilter.PHOTO
+async def _(_, message):
+    y = await eor(message, text="<b>🔍 Mencari Pap...</b>")
+    try:
+        pap = []
+        async for pa in app2.search_messages(
+            "mm_kyran", filter=enums.MessagesFilter.PHOTO, limit=1):
+                pap.append(pa)
+                poto = random.choice(pap)
+                ajg = await app2.download_media(poto)
+                await message.reply_photo(
+                    photo=ajg,
+                    caption=f"<b>Untuk Kamu Dari {app.me.mention}",
                 )
-            ]
-        ),
-        False,
-        caption="<b>Buat Kamu...</b>",
-    )
-
-    await kazu.delete()
+                await y.delete()
+    except Exception:
+        await y.edit(f"**Error `{e}`**")
 
 
 __MODULE__ = "Asupan"
