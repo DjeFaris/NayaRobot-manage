@@ -12,10 +12,10 @@ async def _(client, message):
         asupan = []
         async for asu in app2.search_messages(
             "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO):
-#                asupan.append(InputMediaVideo(asu.video.file_id))
-                asupan.append(asu)
+                asupan.append(InputMediaVideo(asu.video.file_id))
+#                asupan.append(asu)
                 video = random.choice(asupan)
-                ajg = await app2.download_media(asupan)
+                ajg = await app2.download_media(video)
                 await client.send_media_group(
                     media=ajg,
                     caption=f"<b>Asupan By {app.me.mention}</b>", quote=True
