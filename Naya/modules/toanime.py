@@ -35,8 +35,7 @@ async def convert_image(_, message):
         await asyncio.sleep(30)
         get_photo = []
         async for i in app2.search_messages(
-            bot, filter=enums.MessagesFilter.PHOTO
-        ):
+            bot, filter=enums.MessagesFilter.PHOTO, limit=1):
             if not i.photo:
                 await message.reply(
                     f"❌ {bot} Tidak dapat merespon permintaan ", quote=True
