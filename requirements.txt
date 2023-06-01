@@ -36,3 +36,4 @@ SpeechRecognition
 py-extract
 py-trans
 pymediainfo
+wget
