@@ -18,7 +18,7 @@ async def _(_, message):
             asupannya.append(asupan)
         video = random.choice(asupannya)
         if video:
-            await message.reply_video(
+            await app.send_video(
                 video,
                 caption=f"<b>Asupan By {app.me.mention}</b>",
             )
@@ -37,10 +37,9 @@ async def _(_, message):
         ):
             ayangnya.append(ayang)
         photo = random.choice(ayangnya)
-        await message.reply_photo(
+        await app.send_photo(
             photo,
-            caption=f"<b>Ayang By <a href=tg://user?id={app.me.id}>{app.me.first_name} {app.me.last_name or ''}</a></b>",
-            reply_to_message_id=message.id,
+            caption=f"<b>Ayang By {app.me.mention}",
         )
         await y.delete()
     except Exception:
