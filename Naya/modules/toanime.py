@@ -42,7 +42,7 @@ async def convert_image(_, message):
                     f"❌ {bot} Tidak dapat merespon permintaan ", quote=True
                 )
             else:
-                get_photo.append(i))
+                get_photo.append(i)
         await app2.download_media(get_photo)
         await app.send_media_group(
             media=get_photo,
