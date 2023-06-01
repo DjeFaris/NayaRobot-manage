@@ -59,8 +59,7 @@ async def _(_, message):
                 ajg = await app2.download_media(poto)
                 await message.reply_photo(
                     photo=ajg,
-                    caption=f"<b>Cowo By {app.me.mention}",
-                )
+                    caption=f"**Cowo By {app.me.mention}</b>",
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -79,8 +78,7 @@ async def _(_, message):
                 ajg = await app2.download_media(poto)
                 await message.reply_photo(
                     photo=ajg,
-                    caption=f"<b>Anime By {app.me.mention}",
-                )
+                    caption=f"<b>Anime By {app.me.mention}</b>",
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -98,8 +96,7 @@ async def _(_, message):
                 ajg = await app2.download_media(poto)
                 await message.reply_photo(
                     photo=ajg,
-                    caption=f"<b>Anime By {app.me.mention}",
-                )
+                    caption=f"<b>Anime By {app.me.mention}</b>",
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -117,8 +114,7 @@ async def _(_, message):
                 ajg = await app2.download_media(poto)
                 await message.reply_photo(
                     photo=ajg,
-                    caption=f"<b>PP Couple By {app.me.mention}",
-                )
+                    caption=f"<b>PP Couple By {app.me.mention}</b>",
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -136,8 +132,7 @@ async def _(_, message):
                 ajg = await app2.download_media(poto)
                 await message.reply_photo(
                     photo=ajg,
-                    caption=f"<b>PP Couple By {app.me.mention}",
-                )
+                    caption=f"<b>PP Couple By {app.me.mention}</b>",
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
@@ -155,8 +150,7 @@ async def _(_, message):
                 ajg = await app2.download_media(poto)
                 await message.reply_photo(
                     photo=ajg,
-                    caption=f"<b>Untuk Kamu Dari {app.me.mention}",
-                )
+                    caption=f"<b>Untuk Kamu Dari {app.me.mention}</b>",
                 await y.delete()
     except Exception:
         await y.edit(f"**Error `{e}`**")
