@@ -46,7 +46,6 @@ async def convert_image(_, message):
         await app2.download_media(get_photo)
         await app.send_media_group(
             media=get_photo,
-            caption=f"<b>Maker by :{app.me.mention}</b>",
         )
         user_info = await app2.resolve_peer(bot)
         return await app2.invoke(DeleteHistory(peer=user_info, max_id=0, revoke=True))
