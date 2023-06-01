@@ -12,16 +12,15 @@ async def _(_, message):
     try:
         asupannya = []
         async for asupan in app2.search_messages(
-            "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO
-        ):
-        if asupan.video:
-            asupannya.append(asupan)
-        video = random.choice(asupannya)
-        await app.send_video(
-                video,
-                caption=f"<b>Asupan By {app.me.mention}</b>",
-        )
-        await y.delete()
+            "AsupanNyaSaiki", filter=enums.MessagesFilter.VIDEO):
+                if asupan.video:
+                    asupannya.append(asupan)
+                video = random.choice(asupannya)
+                await message.reply_video(
+                    video,
+                    caption=f"<b>Asupan By {app.me.mention}</b>",
+                )
+                await y.delete()
     except Exception:
         await y.edit("<b>Video tidak ditemukan silahkan ulangi beberapa saat lagi</b>")
 
@@ -34,14 +33,14 @@ async def _(_, message):
         async for ayang in app2.search_messages(
             "AyangSaiki", filter=enums.MessagesFilter.PHOTO
         ):
-        if ayang.photo:
-            ayangnya.append(ayang)
-        photo = random.choice(ayangnya)
-        await message.reply_photo(
-            photo,
-            caption=f"<b>Ayang By {app.me.mention}",
-        )
-        await y.delete()
+            if ayang.photo:
+                ayangnya.append(ayang)
+            photo = random.choice(ayangnya)
+            await message.reply_photo(
+                photo,
+                caption=f"<b>Ayang By {app.me.mention}",
+            )
+            await y.delete()
     except Exception:
         await y.edit("<b>Ayang tidak ditemukan silahkan ulangi beberapa saat lagi</b>")
 
