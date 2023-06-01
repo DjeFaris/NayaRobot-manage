@@ -29,22 +29,22 @@ async def convert_image(_, message):
         await eor(message, text="`Processing...`")
     bot = "qq_neural_anime_bot"
     if message.reply_to_message:
-        cot = eor(message, text="`Processing...`")
+        cot = message.reply_to_message 
         await app2.unblock_user(bot)
-        ba = await app2.copy(bot)
+        ba = await app2.send_message(bot, cot)
         await asyncio.sleep(30)
         get_photo = []
         async for i in app2.search_messages(
-            bot, filter=enums.MessagesFilter.PHOTO, limit=1):
-            if not i.photo:
-                await message.reply(
-                    f"❌ {bot} Tidak dapat merespon permintaan ", quote=True
-                )
-            else:
-                get_photo.append(i)
-        ajg = await app2.download_media(get_photo)
-        await message.reply_photo(
-            photo=ajg,
-        )
+            bot, filter=enums.MessagesFilter.PHOTO, limit):
+                if not i.photo:
+                    await message.reply(f"❌ {bot} Tidak dapat merespon permintaan ",
+                    quote=True,
+                    )
+                else:
+                    get_photo.append(i)
+                    ajg = await app2.download_media(get_photo)
+                    await message.reply_photo(
+                        photo=ajg,
+                    )
         user_info = await app2.resolve_peer(bot)
         return await app2.invoke(DeleteHistory(peer=user_info, max_id=0, revoke=True))
