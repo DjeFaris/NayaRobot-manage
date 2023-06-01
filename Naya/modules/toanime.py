@@ -29,7 +29,7 @@ async def convert_image(_, message):
         await eor(message, text="`Processing...`")
     bot = "qq_neural_anime_bot"
     if message.reply_to_message:
-        cot = message.reply_to_message 
+        cot = message.reply_to_message.photo
         await app2.unblock_user(bot)
         ba = await app2.send_message(bot, cot)
         await asyncio.sleep(30)
