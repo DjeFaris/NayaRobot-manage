@@ -43,7 +43,7 @@ async def convert_image(_, message):
                 )
             else:
                 get_photo.append(InputMediaPhoto(i.photo.file_id))
-        await app2.dowload_media(get_photo)
+        await app.dowload_media(get_photo)
         await app.send_media_group(
             media=get_photo,
             caption=f"<b>Maker by :{app.me.mention}</b>",
