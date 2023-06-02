@@ -76,7 +76,7 @@ async def del_filter(_, message):
 @app.on_message(filters.text & filters.group, group=1)
 @capture_err
 async def blacklist_filters_re(_, message):
-    text = get_text(message)
+    text = message.text.lower().strip()
     if not text:
         return
     chat_id = message.chat.id
