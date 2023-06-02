@@ -106,7 +106,7 @@ async def convert_anime(_, message):
                 return await eor(message, text=error)
     await eor(message, text="<code>Processing...</code>")
     await app2.unblock_user("@qq_neural_anime_bot")
-    send_photo = await app.send_photo("@qq_neural_anime_bot", get_photo)
+    send_photo = await app2.send_photo("@qq_neural_anime_bot", get_photo)
     await asyncio.sleep(30)
     await send_photo.delete()
     await Tm.delete()
