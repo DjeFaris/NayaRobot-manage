@@ -73,7 +73,7 @@ async def del_filter(_, message):
     await message.reply_text("**No such blacklist filter.**")
 
 
-@app.on_message(filters.text & ~filters.private, group=blacklist_filters_group)
+@app.on_message(filters.text & filters.group, group=1)
 @capture_err
 async def blacklist_filters_re(_, message):
     text = get_text(message)
