@@ -39,19 +39,19 @@ async def convert_audio(_, message):
     replied = message.reply_to_message
     Tm = await message.reply("<code>Processing...</code>")
     if not replied:
-        return await Tm.edit("<code>Mohon balas ke video</code>")
+        return await eor(message, text="<code>Mohon balas ke video</code>")
     if replied.media == MessageMediaType.VIDEO:
-        await Tm.edit("<code>Downloading video . . ..</code>")
+        await eor(message, text="<code>Downloading video . . ..</code>")
         file = await client.download_media(
             message=replied,
             file_name=f"toaudio_{replied.id}",
         )
         out_file = f"{file}.mp3"
         try:
-            await Tm.edit("<code>Processing extract audio...</code>")
+            await eor(message, text="<code>Processing extract audio...</code>")
             cmd = f"ffmpeg -i {file} -q:a 0 -map a {out_file}"
             await run_cmd(cmd)
-            await Tm.edit("<code>Processing upload...</code>")
+            await eor(message, text="<code>Processing upload...</code>")
             await app.send_voice(
                 message.chat.id,
                 voice=out_file,
@@ -60,9 +60,9 @@ async def convert_audio(_, message):
             os.remove(file)
             await Tm.delete()
         except Exception as error:
-            await Tm.edit(error)
+            await eor(message, text=error)
     else:
-        return await Tm.edit("<code>Mohon balas ke video.</code>")
+        return await eor(message, text="<code>Mohon balas ke video.</code>")
 
 @app.on_message(filters.command(["toanime"]))
 async def convert_anime(_, message):
@@ -79,7 +79,7 @@ async def convert_anime(_, message):
                 file = "gift"
                 get_photo = await dl_pic(client, message.reply_to_message)
             else:
-                return await Tm.edit(
+                return await eor(message, text=
                     "<code>Mohon balas ke foto</code>"
                 )
         else:
@@ -94,7 +94,7 @@ async def convert_anime(_, message):
                 get_photo = await dl_pic(client, photo)
     else:
         if len(message.command) < 2:
-            return await Tm.edit(
+            return await eor(message, text=
                 "`Mohon balas ke foto...`"
             )
         else:
@@ -104,8 +104,8 @@ async def convert_anime(_, message):
                 photo = get.photo.big_file_id
                 get_photo = await dl_pic(client, photo)
             except Exception as error:
-                return await Tm.edit(error)
-    await Tm.edit("<code>Processing...</code>")
+                return await eor(message, text=error)
+    await eor(message, text="<code>Processing...</code>")
     await client.unblock_user("@qq_neural_anime_bot")
     send_photo = await client.send_photo("@qq_neural_anime_bot", get_photo)
     await asyncio.sleep(30)
@@ -162,6 +162,6 @@ async def convert_efek(_, message):
         else:
             await message.reply(f"`Silakan format yang anda inginkan : {tau}`")
     else:
-        await Tm.edit(
+        await eor(message, text=
             f"`Silakan masukkan : <code>/efek bengek</code> balas ke ke audio atau mp3.`"
         )
