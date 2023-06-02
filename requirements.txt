@@ -41,4 +41,4 @@ wget
 youtube-search-python
 yt-dlp
 regex
-pytgcalls==0.9.7
+py-tgcalls==0.9.7
