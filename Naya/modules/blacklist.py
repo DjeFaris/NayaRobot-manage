@@ -18,6 +18,7 @@ from Naya.utils.dbfunctions import (
     get_blacklisted_words,
     save_blacklist_filter,
 )
+from Naya.utils.tools import get_arg
 from Naya.utils.filter_groups import blacklist_filters_group
 
 __MODULE__ = "Blacklist"
@@ -34,7 +35,7 @@ async def save_filters(_, message):
     if message.reply_to_message:
         kata = message.reply_to_message.text
     else:
-        kata = message.text.split(" ", 1)[1].strip()
+        kata = get_arg(message)
     if not kata:
         return await message.reply_text("**Usage**\n__/blacklist [balas pesan/berikan kata]__")
     await message.reply_to_message.delete()
