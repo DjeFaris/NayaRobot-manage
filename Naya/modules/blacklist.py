@@ -18,7 +18,7 @@ from Naya.utils.dbfunctions import (
     get_blacklisted_words,
     save_blacklist_filter,
 )
-from Naya.utils.tools import get_arg
+from Naya.utils.tools import get_arg, get_text
 from Naya.utils.filter_groups import blacklist_filters_group
 
 __MODULE__ = "Blacklist"
@@ -77,7 +77,7 @@ async def del_filter(_, message):
 @app.on_message(filters.text & ~filters.private, group=blacklist_filters_group)
 @capture_err
 async def blacklist_filters_re(_, message):
-    text = message.text.lower().strip()
+    text = get_text(message)
     if not text:
         return
     chat_id = message.chat.id
