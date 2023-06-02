@@ -96,16 +96,16 @@ async def blacklist_filters_re(_, message):
                 try:
                     until_date = datetime.now() + timedelta(hours=24)
                     await message.delete()
-                    await message.chat.restrict_member(
-                        user.id,
-                        ChatPermissions(),
-                        until_date=until_date,
-                    )
+#                    await message.chat.restrict_member(
+#                        user.id,
+#                        ChatPermissions(),
+#                        until_date=until_date,
+#                    )
                 except Exception as e:
                     print(e)
                 return await app.send_message(
                     chat_id,
-                    f"Muted {user.mention} [`{user.id}`] for 24 hour "
-                    + f"due to a blacklist match on {word}.",
+                    f"Saya menghapus pesan dia {user.mention} [`{user.id}`] "
+                    + f"Karna menggunakan kata terlarang {word}.",
                 )
 
