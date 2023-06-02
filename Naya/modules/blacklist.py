@@ -37,7 +37,7 @@ async def save_filters(_, message):
     kata = message.text.split(None, 1)[1].strip()
     if not kata:
         return await message.reply_text("**Usage**\n__/blacklist [balas pesan/berikan kata]__")
-    await message.reply_to_message.delete()
+#    await message.reply_to_message.delete()
     await message.delete()
     chat_id = message.chat.id
     await save_blacklist_filter(chat_id, kata)
