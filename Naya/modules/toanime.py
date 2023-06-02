@@ -15,11 +15,14 @@ from pyrogram import Client, filters, enums
 from pyrogram.types import *
 from pyrogram.raw.functions.messages import DeleteHistory
 from Naya import *
+from Naya.utils.tools import *
 from Naya import app2 as client
 
 __MODULE__ = "To Anime"
 __HELP__ = f"""
 /toanime [balas foto] - Ubah foto menjadi anime, wajah harus terlihat.
+/toaudio [balas ke video] - Extract suara dari video.
+/efek [nama efek] [balas audio] - Ubah audio suara dengan menambahkan efek.
 """
 
 
@@ -31,6 +34,35 @@ async def dl_pic(client, download):
     get_photo = BytesIO(content)
     return get_photo
 
+@app.on_message(filters.command(["toaudio"]))
+async def convert_audio(_, message):
+    replied = message.reply_to_message
+    Tm = await message.reply("<code>Processing...</code>")
+    if not replied:
+        return await Tm.edit("<code>Mohon balas ke video</code>")
+    if replied.media == MessageMediaType.VIDEO:
+        await Tm.edit("<code>Downloading video . . ..</code>")
+        file = await client.download_media(
+            message=replied,
+            file_name=f"toaudio_{replied.id}",
+        )
+        out_file = f"{file}.mp3"
+        try:
+            await Tm.edit("<code>Processing extract audio...</code>")
+            cmd = f"ffmpeg -i {file} -q:a 0 -map a {out_file}"
+            await run_cmd(cmd)
+            await Tm.edit("<code>Processing upload...</code>")
+            await app.send_voice(
+                message.chat.id,
+                voice=out_file,
+                reply_to_message_id=message.id,
+            )
+            os.remove(file)
+            await Tm.delete()
+        except Exception as error:
+            await Tm.edit(error)
+    else:
+        return await Tm.edit("<code>Mohon balas ke video.</code>")
 
 @app.on_message(filters.command(["toanime"]))
 async def convert_anime(_, message):
