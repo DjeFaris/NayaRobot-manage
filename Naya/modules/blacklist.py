@@ -4,7 +4,7 @@ Copyright (c) 2023 Kynan | TheHamkerCat
 
 """
 import re
-from time import time
+from datetime import datetime, timedelta
 
 from pyrogram import filters
 from pyrogram.types import ChatPermissions
@@ -93,16 +93,17 @@ async def blacklist_filters_re(_, message):
                 return
             if user.id:
                 try:
+                    until_date = datetime.now() + timedelta(hours=24)
                     await message.chat.restrict_member(
-                      user.id,
-                      ChatPermissions(),
-                      until_date=int(time() + 3600),
+                        user.id,
+                        ChatPermissions(),
+                        until_date=until_date,
                     )
                 except Exception as e:
                     print(e)
                 return await app.send_message(
-                chat_id,
-                f"Muted {user.mention} [`{user.id}`] for 1 hour "
-                + f"due to a blacklist match on {word}.",
+                    chat_id,
+                    f"Muted {user.mention} [`{user.id}`] for 24 hour "
+                    + f"due to a blacklist match on {word}.",
                 )
 
