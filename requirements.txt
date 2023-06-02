@@ -40,3 +40,5 @@ pymediainfo
 wget
 youtube-search-python
 yt-dlp
+regex
+pytgcalls==0.9.7

