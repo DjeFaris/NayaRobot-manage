@@ -103,9 +103,9 @@ async def blacklist_filters_re(_, message):
 #                    )
                 except Exception as e:
                     print(e)
-                return await app.send_message(
-                    chat_id,
-                    f"Saya menghapus pesan dia {user.mention} [`{user.id}`] "
-                    + f"Karna menggunakan kata terlarang {word}.",
-                )
+#                return await app.send_message(
+#                    chat_id,
+#                    f"Saya menghapus pesan dia {user.mention} [`{user.id}`] "
+#                    + f"Karna menggunakan kata terlarang {word}.",
+#                )
 
