@@ -42,7 +42,7 @@ async def convert_audio(_, message):
         return await eor(message, text="<code>Mohon balas ke video</code>")
     if replied.media == MessageMediaType.VIDEO:
         await eor(message, text="<code>Downloading video . . ..</code>")
-        file = await client.download_media(
+        file = await app2.download_media(
             message=replied,
             file_name=f"toaudio_{replied.id}",
         )
@@ -74,10 +74,10 @@ async def convert_anime(_, message):
                 get_photo = message.reply_to_message.photo.file_id
             elif message.reply_to_message.sticker:
                 file = "sticker"
-                get_photo = await dl_pic(client, message.reply_to_message)
+                get_photo = await dl_pic(app2, message.reply_to_message)
             elif message.reply_to_message.animation:
                 file = "gift"
-                get_photo = await dl_pic(client, message.reply_to_message)
+                get_photo = await dl_pic(app2, message.reply_to_message)
             else:
                 return await eor(message, text=
                     "<code>Mohon balas ke foto</code>"
@@ -89,9 +89,9 @@ async def convert_anime(_, message):
                     or message.reply_to_message.sender_chat
                 )
                 file = "foto profil"
-                get = await client.get_chat(chat.id)
+                get = await app.get_chat(chat.id)
                 photo = get.photo.big_file_id
-                get_photo = await dl_pic(client, photo)
+                get_photo = await dl_pic(app2, photo)
     else:
         if len(message.command) < 2:
             return await eor(message, text=
@@ -100,20 +100,20 @@ async def convert_anime(_, message):
         else:
             try:
                 file = "foto"
-                get = await client.get_chat(message.command[1])
+                get = await app.get_chat(message.command[1])
                 photo = get.photo.big_file_id
-                get_photo = await dl_pic(client, photo)
+                get_photo = await dl_pic(app2, photo)
             except Exception as error:
                 return await eor(message, text=error)
     await eor(message, text="<code>Processing...</code>")
-    await client.unblock_user("@qq_neural_anime_bot")
-    send_photo = await client.send_photo("@qq_neural_anime_bot", get_photo)
+    await app2.unblock_user("@qq_neural_anime_bot")
+    send_photo = await app.send_photo("@qq_neural_anime_bot", get_photo)
     await asyncio.sleep(30)
     await send_photo.delete()
     await Tm.delete()
-    info = await client.resolve_peer("@qq_neural_anime_bot")
+    info = await app2.resolve_peer("@qq_neural_anime_bot")
     anime_photo = []
-    async for anime in client.search_messages(
+    async for anime in app2.search_messages(
         "@qq_neural_anime_bot", filter=MessagesFilter.PHOTO
     ):
         anime_photo.append(
@@ -127,14 +127,14 @@ async def convert_anime(_, message):
             anime_photo,
             reply_to_message_id=message.id,
         )
-        return await client.invoke(DeleteHistory(peer=info, max_id=0, revoke=True))
+        return await app2.invoke(DeleteHistory(peer=info, max_id=0, revoke=True))
     else:
         await app.send_message(
             message.chat.id,
             f"<code>Gagal merubah {file}</code>",
             reply_to_message_id=message.id,
         )
-        return await client.invoke(DeleteHistory(peer=info, max_id=0, revoke=True))
+        return await app2.invoke(DeleteHistory(peer=info, max_id=0, revoke=True))
 
 @app.on_message(filters.command("efek"))
 async def convert_efek(_, message):
