@@ -91,18 +91,18 @@ async def blacklist_filters_re(_, message):
         if re.search(pattern, text, flags=re.IGNORECASE):
             if user.id in await list_admins(chat_id):
                 return
-            try:
-                await message.chat.restrict_member(
-                    user.id,
-                    ChatPermissions(),
-                    until_date=int(time() + 3600),
-                )
-            except Exception:
-                return
-            await app.send_message(
+            if user.id:
+                try:
+                    await message.chat.restrict_member(
+                      user.id,
+                      ChatPermissions(),
+                      until_date=int(time() + 3600),
+                    )
+                except Exception as e:
+                    print(e)
+                return await app.send_message(
                 chat_id,
                 f"Muted {user.mention} [`{user.id}`] for 1 hour "
                 + f"due to a blacklist match on {word}.",
-            )
-            return
+                )
 
