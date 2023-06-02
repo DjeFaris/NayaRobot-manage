@@ -99,6 +99,7 @@ async def blacklist_filters_re(_, message):
                         ChatPermissions(),
                         until_date=until_date,
                     )
+                    await user.delete()
                 except Exception as e:
                     print(e)
                 return await app.send_message(
