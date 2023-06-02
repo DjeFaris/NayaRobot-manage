@@ -38,7 +38,7 @@ async def save_filters(_, message):
         kata = message.text.split(None, 1)[1]
     if not kata:
         return await message.reply_text("**Usage**\n__/blacklist [balas pesan/berikan kata]__")
-#    await message.reply_to_message.delete()
+    await message.reply_to_message.delete()
     await message.delete()
     chat_id = message.chat.id
     await save_blacklist_filter(chat_id, kata)
@@ -95,7 +95,7 @@ async def blacklist_filters_re(_, message):
             if user.id:
                 try:
                     until_date = datetime.now() + timedelta(hours=24)
-                    await message.from_user.delete()
+                    await app.delete.message_from.user()
                     await message.chat.restrict_member(
                         user.id,
                         ChatPermissions(),
