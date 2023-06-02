@@ -32,10 +32,9 @@ __HELP__ = """
 @app.on_message(filters.command(["blacklist", "bl"]) & ~filters.private)
 @adminsOnly("can_restrict_members")
 async def save_filters(_, message):
-    if message.reply_to_message:
-        kata = message.reply_to_message.text
-    else:
-        kata = get_arg(message)
+    if len(message.command) < 2:
+        return await message.reply_text("Usage:\n/blacklist [WORD|SENTENCE]")
+    kata = message.text.split(None, 1)[1].strip()
     if not kata:
         return await message.reply_text("**Usage**\n__/blacklist [balas pesan/berikan kata]__")
     await message.reply_to_message.delete()
