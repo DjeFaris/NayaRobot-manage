@@ -55,12 +55,11 @@ async def convert_audio(_, message):
             await app.send_voice(
                 message.chat.id,
                 voice=out_file,
-                reply_to_message_id=message.id,
             )
             os.remove(file)
             await Tm.delete()
-        except Exception as error:
-            await eor(message, text=error)
+        except Exception as e:
+            await eor(message, text=f"{e}")
     else:
         return await eor(message, text="<code>Mohon balas ke video.</code>")
 
