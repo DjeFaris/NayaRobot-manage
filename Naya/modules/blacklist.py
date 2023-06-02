@@ -95,7 +95,7 @@ async def blacklist_filters_re(_, message):
             if user.id:
                 try:
                     until_date = datetime.now() + timedelta(hours=24)
-                    await app.delete.message_from.user()
+                    await message.delete()
                     await message.chat.restrict_member(
                         user.id,
                         ChatPermissions(),
