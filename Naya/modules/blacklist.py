@@ -4,7 +4,7 @@ Copyright (c) 2023 Kynan | TheHamkerCat
 
 """
 import re
-from time import time
+from datetime import datetime, timedelta
 
 from pyrogram import filters
 from pyrogram.types import ChatPermissions
@@ -18,6 +18,7 @@ from Naya.utils.dbfunctions import (
     get_blacklisted_words,
     save_blacklist_filter,
 )
+from Naya.utils.tools import get_arg, get_text
 from Naya.utils.filter_groups import blacklist_filters_group
 
 __MODULE__ = "Blacklist"
@@ -34,7 +35,7 @@ async def save_filters(_, message):
     if message.reply_to_message:
         kata = message.reply_to_message.text
     else:
-        kata = message.text.split(" ", 1)[1].strip()
+        kata = message.text.split(None, 1)[1]
     if not kata:
         return await message.reply_text("**Usage**\n__/blacklist [balas pesan/berikan kata]__")
     await message.reply_to_message.delete()
@@ -73,7 +74,7 @@ async def del_filter(_, message):
     await message.reply_text("**No such blacklist filter.**")
 
 
-@app.on_message(filters.text & ~filters.private, group=blacklist_filters_group)
+@app.on_message(filters.text & filters.group, group=1)
 @capture_err
 async def blacklist_filters_re(_, message):
     text = message.text.lower().strip()
@@ -91,16 +92,20 @@ async def blacklist_filters_re(_, message):
         if re.search(pattern, text, flags=re.IGNORECASE):
             if user.id in await list_admins(chat_id):
                 return
-            try:
-                await message.chat.restrict_member(
-                    user.id,
-                    ChatPermissions(),
-                    until_date=int(time() + 3600),
-                )
-            except Exception:
-                return
-            return await app.send_message(
-                chat_id,
-                f"Muted {user.mention} [`{user.id}`] for 1 hour "
-                + f"due to a blacklist match on {word}.",
-            )
+            if user.id:
+                try:
+                    until_date = datetime.now() + timedelta(hours=24)
+                    await message.delete()
+#                    await message.chat.restrict_member(
+#                        user.id,
+#                        ChatPermissions(),
+#                        until_date=until_date,
+#                    )
+                except Exception as e:
+                    print(e)
+#                return await app.send_message(
+#                    chat_id,
+#                    f"Saya menghapus pesan dia {user.mention} [`{user.id}`] "
+#                    + f"Karna menggunakan kata terlarang {word}.",
+#                )
+
