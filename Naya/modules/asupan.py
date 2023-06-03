@@ -33,7 +33,7 @@ async def _(client, message):
     try:
         cewe = []
         async for ce in app2.search_messages(
-            "AyangSaiki", filter=enums.MessagesFilter.PHOTO, limit=1):
+            "AyangSaiki", filter=enums.MessagesFilter.PHOTO ):
                 cewe.append(ce)
                 poto = random.choice(cewe)
                 ajg = await app2.download_media(poto)
